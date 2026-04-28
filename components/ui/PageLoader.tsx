@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useTransition, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 
 // Global loader that shows on route change
@@ -18,9 +18,16 @@ export function RouteLoader() {
     const t2 = setTimeout(() => setProgress(90), 200)
     const t3 = setTimeout(() => {
       setProgress(100)
-      setTimeout(() => { setLoading(false); setProgress(0) }, 200)
+      setTimeout(() => {
+        setLoading(false)
+        setProgress(0)
+      }, 200)
     }, 350)
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3) }
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+      clearTimeout(t3)
+    }
   }, [pathname, searchParams])
 
   if (!loading && progress === 0) return null
@@ -32,8 +39,8 @@ export function RouteLoader() {
         className="fixed top-0 left-0 z-[100] h-0.5 transition-all duration-200"
         style={{
           width: `${progress}%`,
-          background: 'linear-gradient(90deg, #22c55e, #16a34a)',
-          boxShadow: '0 0 8px rgba(34,197,94,0.6)',
+          background: 'var(--btn-primary-bg)',
+          boxShadow: '0 0 10px rgba(124, 108, 242, 0.48)',
           opacity: loading ? 1 : 0,
           transition: 'width 0.2s ease, opacity 0.3s ease',
         }}
@@ -57,12 +64,15 @@ export function RouteLoader() {
 export function Spinner({ size = 16, color }: { size?: number; color?: string }) {
   return (
     <svg
-      width={size} height={size} viewBox="0 0 24 24" fill="none"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
       style={{ animation: 'spin 0.7s linear infinite' }}
     >
       <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
       <circle cx="12" cy="12" r="9" stroke={color || 'var(--border-default)'} strokeWidth="2.5" />
-      <path d="M12 3a9 9 0 0 1 9 9" stroke={color || 'var(--green-600)'} strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M12 3a9 9 0 0 1 9 9" stroke={color || 'var(--accent-600)'} strokeWidth="2.5" strokeLinecap="round" />
     </svg>
   )
 }

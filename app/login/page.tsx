@@ -37,82 +37,118 @@ export default function LoginPage() {
   }
 
   const handleMagicLink = async () => {
-    if (!email) { toast.error('Enter your email first'); return }
+    if (!email) {
+      toast.error('Enter your email first')
+      return
+    }
+
     setLoading(true)
     const { error } = await supabase.auth.signInWithOtp({ email })
-    if (error) { toast.error(error.message) }
-    else { setMagicSent(true); toast.success('Magic link sent!') }
+    if (error) {
+      toast.error(error.message)
+    } else {
+      setMagicSent(true)
+      toast.success('Magic link sent!')
+    }
     setLoading(false)
   }
 
   return (
     <div
       className="min-h-screen flex"
-      style={{ background: 'linear-gradient(135deg, #f0fdf4 0%, #f8fafc 50%, #eff6ff 100%)' }}
+      style={{
+        background:
+          'linear-gradient(135deg, color-mix(in srgb, var(--accent-600) 14%, white) 0%, var(--bg-surface) 52%, color-mix(in srgb, var(--accent-400) 12%, white) 100%)',
+      }}
     >
-      {/* Left decorative panel — hidden on mobile */}
+      {/* Left decorative panel - hidden on mobile */}
       <div
         className="hidden lg:flex w-1/2 flex-col justify-between p-12 relative overflow-hidden"
         style={{
-          background: 'linear-gradient(145deg, #15803d 0%, #166534 40%, #14532d 100%)',
+          background: 'linear-gradient(145deg, var(--accent-700) 0%, var(--accent-600) 42%, #5647cf 100%)',
         }}
       >
-        {/* Orb decorations */}
-        <div className="absolute top-0 left-0 w-80 h-80 rounded-full opacity-10"
-          style={{ background: 'var(--bg-card)', transform: 'translate(-40%, -40%)' }} />
-        <div className="absolute bottom-0 right-0 w-64 h-64 rounded-full opacity-10"
-          style={{ background: '#4ade80', transform: 'translate(30%, 30%)' }} />
-        <div className="absolute top-1/2 right-0 w-48 h-48 rounded-full opacity-5"
-          style={{ background: 'var(--bg-card)', transform: 'translate(40%, -50%)' }} />
+        <div
+          className="absolute top-0 left-0 w-80 h-80 rounded-full opacity-10"
+          style={{ background: 'var(--bg-card)', transform: 'translate(-40%, -40%)' }}
+        />
+        <div
+          className="absolute bottom-0 right-0 w-64 h-64 rounded-full opacity-10"
+          style={{ background: 'var(--accent-400)', transform: 'translate(30%, 30%)' }}
+        />
+        <div
+          className="absolute top-1/2 right-0 w-48 h-48 rounded-full opacity-5"
+          style={{ background: 'var(--bg-card)', transform: 'translate(40%, -50%)' }}
+        />
 
-        {/* Logo */}
         <div className="relative flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.2)' }}>
+          <div
+            className="w-10 h-10 rounded-2xl flex items-center justify-center"
+            style={{
+              background: 'rgba(255,255,255,0.15)',
+              backdropFilter: 'blur(8px)',
+              border: '1px solid rgba(255,255,255,0.2)',
+            }}
+          >
             <Sparkles size={18} className="text-white" />
           </div>
           <div>
             <p className="font-bold text-white text-lg tracking-tight">ResLedge</p>
-            <p className="text-green-300 text-xs font-medium">Knowledge OS</p>
+            <p className="text-xs font-medium" style={{ color: 'rgba(226, 221, 255, 0.86)' }}>
+              Knowledge OS
+            </p>
           </div>
         </div>
 
-        {/* Hero copy */}
         <div className="relative">
           <h2 className="text-4xl font-bold text-white mb-4 leading-tight" style={{ letterSpacing: '-0.03em' }}>
-            Your personal<br />
-            <span style={{ color: '#86efac' }}>knowledge ledger.</span>
+            Your personal
+            <br />
+            <span style={{ color: '#e2ddff' }}>knowledge ledger.</span>
           </h2>
-          <p className="text-green-200 text-sm leading-relaxed max-w-xs">
+          <p className="text-sm leading-relaxed max-w-xs" style={{ color: 'rgba(238, 234, 255, 0.8)' }}>
             Capture learnings, resources, ideas, and tools in one clean workspace. Built for the relentlessly curious.
           </p>
           <div className="mt-8 flex flex-col gap-3">
-            {['Capture learnings & insights', 'Organize with tags & links', 'Search everything instantly'].map((feat, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div className="w-5 h-5 rounded-full flex items-center justify-center shrink-0" style={{ background: 'rgba(134,239,172,0.2)', border: '1px solid rgba(134,239,172,0.3)' }}>
-                  <div className="w-1.5 h-1.5 rounded-full bg-green-300" />
+            {['Capture learnings & insights', 'Organize with tags & links', 'Search everything instantly'].map((feat) => (
+              <div key={feat} className="flex items-center gap-3">
+                <div
+                  className="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
+                  style={{
+                    background: 'rgba(226, 221, 255, 0.14)',
+                    border: '1px solid rgba(226, 221, 255, 0.24)',
+                  }}
+                >
+                  <div className="w-1.5 h-1.5 rounded-full" style={{ background: '#e2ddff' }} />
                 </div>
-                <span className="text-sm text-green-100">{feat}</span>
+                <span className="text-sm" style={{ color: 'rgba(245, 243, 255, 0.92)' }}>
+                  {feat}
+                </span>
               </div>
             ))}
           </div>
         </div>
 
-        <p className="relative text-xs text-green-400">© {new Date().getFullYear()} ResLedge. All rights reserved.</p>
+        <p className="relative text-xs" style={{ color: 'rgba(226, 221, 255, 0.62)' }}>
+          © {new Date().getFullYear()} ResLedge. All rights reserved.
+        </p>
       </div>
 
-      {/* Right — auth form */}
+      {/* Right - auth form */}
       <div className="flex-1 flex items-center justify-center p-6">
         <div className="w-full max-w-sm">
-
-          {/* Mobile logo */}
           <div className="flex items-center gap-2.5 justify-center mb-8 lg:hidden">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center gradient-green shadow-green">
+            <div
+              className="w-9 h-9 rounded-xl flex items-center justify-center"
+              style={{ background: 'var(--btn-primary-bg)', boxShadow: '0 12px 28px rgba(124, 108, 242, 0.24)' }}
+            >
               <Sparkles size={16} className="text-white" />
             </div>
-            <span className="font-bold text-lg tracking-tight" style={{ color: 'var(--text-primary)' }}>ResLedge</span>
+            <span className="font-bold text-lg tracking-tight" style={{ color: 'var(--text-primary)' }}>
+              ResLedge
+            </span>
           </div>
 
-          {/* Card */}
           <div
             className="rounded-3xl p-7"
             style={{
@@ -132,17 +168,22 @@ export default function LoginPage() {
 
             {magicSent ? (
               <div className="text-center py-6">
-                <div className="w-12 h-12 rounded-2xl mx-auto mb-4 flex items-center justify-center gradient-green shadow-green">
+                <div
+                  className="w-12 h-12 rounded-2xl mx-auto mb-4 flex items-center justify-center"
+                  style={{ background: 'var(--btn-primary-bg)', boxShadow: '0 14px 30px rgba(124, 108, 242, 0.22)' }}
+                >
                   <Mail size={20} className="text-white" />
                 </div>
-                <p className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Check your inbox</p>
+                <p className="text-sm font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
+                  Check your inbox
+                </p>
                 <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
                   Magic link sent to <strong style={{ color: 'var(--text-primary)' }}>{email}</strong>
                 </p>
                 <button
                   onClick={() => setMagicSent(false)}
                   className="mt-4 text-sm font-medium transition-colors"
-                  style={{ color: 'var(--text-muted)' }}
+                  style={{ color: 'var(--accent-500)' }}
                 >
                   ← Back to sign in
                 </button>
@@ -154,7 +195,7 @@ export default function LoginPage() {
                   <input
                     type="email"
                     value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="form-input"
                     placeholder="you@example.com"
                     required
@@ -165,7 +206,7 @@ export default function LoginPage() {
                   <input
                     type="password"
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="form-input"
                     placeholder="••••••••"
                     required
@@ -177,16 +218,15 @@ export default function LoginPage() {
                   disabled={loading}
                   className="w-full btn-primary justify-center py-2.5 mt-1"
                 >
-                  {loading
-                    ? <Loader2 size={15} className="animate-spin" />
-                    : <ArrowRight size={15} />
-                  }
+                  {loading ? <Loader2 size={15} className="animate-spin" /> : <ArrowRight size={15} />}
                   {isSignUp ? 'Create account' : 'Sign in'}
                 </button>
 
                 <div className="relative flex items-center gap-3 py-1">
                   <div className="flex-1 h-px" style={{ background: 'var(--bg-hover)' }} />
-                  <span className="text-xs font-medium" style={{ color: 'var(--text-faint)' }}>or</span>
+                  <span className="text-xs font-medium" style={{ color: 'var(--text-faint)' }}>
+                    or
+                  </span>
                   <div className="flex-1 h-px" style={{ background: 'var(--bg-hover)' }} />
                 </div>
 
@@ -208,7 +248,7 @@ export default function LoginPage() {
             <button
               onClick={() => setIsSignUp(!isSignUp)}
               className="font-semibold transition-colors"
-              style={{ color: '#16a34a' }}
+              style={{ color: 'var(--accent-500)' }}
             >
               {isSignUp ? 'Sign in' : 'Sign up'}
             </button>
