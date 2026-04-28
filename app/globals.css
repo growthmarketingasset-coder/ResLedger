@@ -53,6 +53,7 @@
   --shadow-sm: 0 6px 18px rgba(0, 0, 0, 0.18);
   --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.2);
   --shadow-hover: 0 14px 36px rgba(0, 0, 0, 0.28);
+  --shadow-lift: 0 22px 50px rgba(7, 10, 18, 0.38);
   --shadow-drop: 0 24px 64px rgba(0, 0, 0, 0.36);
   --shadow-modal: 0 32px 90px rgba(0, 0, 0, 0.45);
   --shadow-sidebar: 0 0 0 rgba(0, 0, 0, 0);
@@ -61,6 +62,7 @@
   --grad-accent-soft: linear-gradient(180deg, rgba(124, 108, 242, 0.12) 0%, rgba(124, 108, 242, 0.04) 100%);
   --btn-primary-bg: linear-gradient(135deg, #7c6cf2 0%, #6958e8 100%);
   --btn-primary-hover: linear-gradient(135deg, #8c7df4 0%, #7565ee 100%);
+  --btn-glass-ring: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 0 0 1px rgba(255, 255, 255, 0.06);
 
   color-scheme: dark;
 }
@@ -94,6 +96,7 @@ html.light:root,
   --shadow-sm: 0 10px 24px rgba(15, 17, 23, 0.07);
   --shadow-card: 0 14px 34px rgba(15, 17, 23, 0.08);
   --shadow-hover: 0 18px 40px rgba(15, 17, 23, 0.12);
+  --shadow-lift: 0 24px 54px rgba(15, 17, 23, 0.16);
   --shadow-drop: 0 24px 64px rgba(15, 17, 23, 0.18);
   --shadow-modal: 0 32px 84px rgba(15, 17, 23, 0.18);
 }
@@ -163,39 +166,83 @@ body::before {
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-all duration-150;
+    @apply relative inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl transition-all duration-150;
     background: var(--btn-primary-bg);
     color: #f8f9ff;
-    box-shadow: 0 10px 24px rgba(124, 108, 242, 0.22);
+    box-shadow: 0 10px 24px rgba(124, 108, 242, 0.22), var(--btn-glass-ring);
+    overflow: hidden;
   }
 
   .btn-primary:hover {
     background: var(--btn-primary-hover);
-    box-shadow: 0 14px 28px rgba(124, 108, 242, 0.26);
+    box-shadow: 0 16px 34px rgba(124, 108, 242, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background: linear-gradient(130deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.02) 38%, rgba(255, 255, 255, 0) 62%);
+    pointer-events: none;
+    opacity: 0.85;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-xl border transition-all duration-150;
+    @apply relative inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-xl border transition-all duration-150;
     background: var(--bg-card);
     color: var(--text-secondary);
     border-color: var(--border-default);
-    box-shadow: var(--shadow-xs);
+    box-shadow: var(--shadow-xs), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    overflow: hidden;
   }
 
   .btn-secondary:hover {
-    background: var(--bg-hover);
+    background: color-mix(in srgb, var(--bg-hover) 72%, var(--accent-soft));
     color: var(--text-primary);
     border-color: var(--border-strong);
+    box-shadow: var(--shadow-sm), 0 0 0 1px rgba(124, 108, 242, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background: linear-gradient(140deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.01) 46%, rgba(255, 255, 255, 0));
+    pointer-events: none;
+    opacity: 0.85;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xl transition-all duration-150;
+    @apply relative inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xl transition-all duration-150;
     color: var(--text-muted);
+    border: 1px solid transparent;
+    overflow: hidden;
   }
 
   .btn-ghost:hover {
-    background: var(--bg-hover);
+    background: color-mix(in srgb, var(--bg-hover) 70%, var(--accent-soft));
     color: var(--text-primary);
+    border-color: rgba(124, 108, 242, 0.16);
+    box-shadow: var(--shadow-xs), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .btn-ghost::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background: linear-gradient(140deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .btn-ghost:hover::after {
+    opacity: 1;
   }
 
   .form-label {
@@ -245,16 +292,55 @@ body::before {
     transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
   }
 
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-lift);
+  }
+
   .panel {
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
     box-shadow: var(--shadow-card);
     border-radius: 16px;
     overflow: hidden;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .panel:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-lift);
   }
 
   .badge {
     @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold;
+  }
+
+  .interactive-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    will-change: transform;
+  }
+
+  .interactive-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-default) !important;
+    box-shadow: var(--shadow-lift) !important;
+  }
+
+  .interactive-card::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0) 44%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .interactive-card:hover::before {
+    opacity: 1;
   }
 }
 

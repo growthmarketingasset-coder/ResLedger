@@ -8,7 +8,7 @@ interface StatsCardProps {
 export default function StatsCard({ label, value, icon, gradient }: StatsCardProps) {
   return (
     <div
-      className="rounded-2xl p-3 sm:p-3.5 flex flex-col items-center text-center transition-all duration-150 cursor-pointer min-h-[112px] sm:min-h-[124px]"
+      className="interactive-card relative rounded-2xl p-3 sm:p-3.5 flex flex-col items-center text-center transition-all duration-150 cursor-pointer min-h-[112px] sm:min-h-[124px] overflow-hidden"
       style={{
         background: 'var(--bg-card)',
         border: '1px solid var(--border-subtle)',

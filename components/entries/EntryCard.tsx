@@ -60,7 +60,7 @@ export default function EntryCard({
         onClick={handleCardClick}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="group animate-slide-in rounded-2xl relative overflow-hidden cursor-pointer transition-all duration-200 touch-manipulation"
+        className="group interactive-card animate-slide-in rounded-2xl relative overflow-hidden cursor-pointer transition-all duration-200 touch-manipulation"
         style={{
           background: 'var(--bg-card)',
           border: `1px solid ${hovered ? 'var(--border-default)' : 'var(--border-subtle)'}`,
