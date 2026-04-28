@@ -189,27 +189,27 @@ export default async function DashboardPage() {
       </div>
 
       {/* Main dashboard grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4 items-start">
-        <div className="interactive-card relative rounded-2xl overflow-hidden" style={P}>
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4 items-stretch">
+        <div className="interactive-card relative rounded-2xl overflow-hidden h-full" style={P}>
           <SectionTitle icon={BarChart3}>Activity (7 days)</SectionTitle>
-          <div className="p-4 sm:p-5"><ActivityBarChart data={days7}/></div>
+          <div className="p-4 sm:p-5 h-full"><ActivityBarChart data={days7}/></div>
         </div>
 
-        <div className="interactive-card relative rounded-2xl overflow-hidden" style={P}>
+        <div className="interactive-card relative rounded-2xl overflow-hidden h-full" style={P}>
           <SectionTitle icon={Target}>Impact Distribution</SectionTitle>
-          <div className="p-4 sm:p-5"><ImpactDonut slices={impactSlices} total={impactTotal}/></div>
+          <div className="p-4 sm:p-5 h-full flex items-center"><ImpactDonut slices={impactSlices} total={impactTotal}/></div>
         </div>
 
-        <div className="self-start">
+        <div className="h-full">
           <WeeklyReport stats={weeklyStats} userName={emailName}/>
         </div>
 
-        <div className="interactive-card relative rounded-2xl overflow-hidden xl:col-span-2" style={P}>
+        <div className="interactive-card relative rounded-2xl overflow-hidden xl:col-span-2 h-full" style={P}>
           <SectionTitle icon={Zap} extra={<span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{background:'rgba(124,108,242,0.12)',color:'var(--accent-400)'}}>{highPotential.length}</span>}>High Potential</SectionTitle>
           <div className="p-4 sm:p-5"><HighPotentialList items={highPotential}/></div>
         </div>
 
-        <div className="interactive-card relative rounded-2xl overflow-hidden" style={P}>
+        <div className="interactive-card relative rounded-2xl overflow-hidden h-full" style={P}>
           <SectionTitle icon={AlertTriangle} extra={(notReviewedCount??0)>0?<span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{background:'rgba(124,108,242,0.12)',color:'var(--accent-400)'}}>{notReviewedCount}</span>:null}>Not Reviewed</SectionTitle>
           <div className="p-4 sm:p-5"><NotReviewedList items={notReviewed}/></div>
         </div>
