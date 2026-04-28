@@ -303,11 +303,11 @@ export function WeeklyReport({ stats, userName }: { stats: WeeklyStats; userName
 
   return (
     <div
-      className="rounded-2xl p-5 relative overflow-hidden"
+      className="rounded-2xl p-5 relative overflow-hidden h-full flex flex-col"
       style={{ background: 'linear-gradient(180deg, rgba(124,108,242,0.10) 0%, rgba(26,29,36,1) 42%)', border: '1px solid rgba(124,108,242,0.16)', boxShadow: 'var(--shadow-card)' }}
     >
       <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-30" style={{ background: 'radial-gradient(circle, rgba(124,108,242,0.22) 0%, transparent 72%)', transform: 'translate(30%,-30%)' }} />
-      <div className="relative">
+      <div className="relative flex-1 flex flex-col">
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] mb-1" style={{ color: 'var(--text-faint)' }}>Weekly Report</p>
@@ -331,7 +331,7 @@ export function WeeklyReport({ stats, userName }: { stats: WeeklyStats; userName
             </div>
           ))}
         </div>
-        <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+        <div className="text-xs mt-auto pt-3" style={{ color: 'var(--text-secondary)' }}>
           {stats.newEntries === 0
             ? 'No entries added this week. Start capturing knowledge.'
             : `${stats.newEntries} entries added. Keep it up, ${userName}.`}
