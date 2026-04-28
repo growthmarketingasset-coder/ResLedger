@@ -16,19 +16,19 @@ export function ActivityBarChart({ data }: { data: BarData[] }) {
   const maxVal = Math.max(...data.flatMap(d => [d.learnings, d.resources]), 1)
   const ticks = getChartTicks(maxVal)
   const activeDays = data.filter(d => d.learnings + d.resources > 0).length
-  const W = 300; const H = 90; const barGap = 2; const groupGap = 6
+  const W = 320; const H = 108; const barGap = 3; const groupGap = 8
 
   const totalBars = data.length * 2
   const totalGaps = data.length * barGap + (data.length - 1) * groupGap
-  const barW = Math.max(4, (W - totalGaps) / totalBars)
+  const barW = Math.max(6, (W - totalGaps) / totalBars)
 
   let x = 0
   const rects: JSX.Element[] = []
   const labels: { x: number; label: string }[] = []
 
   data.forEach((d, i) => {
-    const lH = Math.max((d.learnings / maxVal) * H, d.learnings > 0 ? 3 : 0)
-    const rH = Math.max((d.resources / maxVal) * H, d.resources > 0 ? 3 : 0)
+    const lH = Math.max((d.learnings / maxVal) * H, d.learnings > 0 ? 5 : 0)
+    const rH = Math.max((d.resources / maxVal) * H, d.resources > 0 ? 5 : 0)
     const cx = x + barW + barGap / 2
 
     rects.push(
@@ -38,7 +38,7 @@ export function ActivityBarChart({ data }: { data: BarData[] }) {
         y={H - lH}
         width={barW}
         height={lH}
-        rx="2"
+        rx="3"
         fill="url(#barLearnings)"
         aria-label={`${d.learnings} learnings on ${d.label}`}
       />
@@ -51,7 +51,7 @@ export function ActivityBarChart({ data }: { data: BarData[] }) {
         y={H - rH}
         width={barW}
         height={rH}
-        rx="2"
+        rx="3"
         fill="url(#barResources)"
         aria-label={`${d.resources} resources on ${d.label}`}
       />
@@ -63,15 +63,15 @@ export function ActivityBarChart({ data }: { data: BarData[] }) {
   return (
     <div className="w-full">
       <div className="flex gap-2 sm:gap-3">
-        <div className="w-7 shrink-0 pt-1">
-          <div className="flex h-[90px] flex-col justify-between">
+        <div className="w-8 shrink-0 pt-1">
+          <div className="flex h-[108px] flex-col justify-between">
             {ticks.map(tick => (
-              <span key={tick} className="text-[10px] font-semibold leading-none tabular-nums text-right" style={{ color: 'var(--text-faint)' }}>
+              <span key={tick} className="text-[11px] font-semibold leading-none tabular-nums text-right" style={{ color: 'var(--text-faint)' }}>
                 {tick}
               </span>
             ))}
           </div>
-          <p className="mt-2 text-[9px] font-semibold uppercase tracking-[0.12em]" style={{ color: 'var(--text-faint)' }}>
+          <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.12em]" style={{ color: 'var(--text-faint)' }}>
             Count
           </p>
         </div>
@@ -105,7 +105,7 @@ export function ActivityBarChart({ data }: { data: BarData[] }) {
             })}
             {rects}
             {labels.map(({ x: lx, label }) => (
-              <text key={lx} x={lx} y={H + 12} textAnchor="middle" fontSize="9" fill="var(--text-muted)" fontFamily="inherit">
+              <text key={lx} x={lx} y={H + 14} textAnchor="middle" fontSize="10" fill="var(--text-muted)" fontFamily="inherit">
                 {label}
               </text>
             ))}
@@ -115,16 +115,16 @@ export function ActivityBarChart({ data }: { data: BarData[] }) {
 
       <div className="mt-2 flex flex-wrap items-center gap-3 sm:gap-4">
         <div className="flex items-center gap-1.5">
-          <div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#8f81f6' }} />
-          <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>Learnings</span>
+          <div className="w-3 h-3 rounded-sm" style={{ background: '#8f81f6' }} />
+          <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Learnings</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#c2bbff' }} />
-          <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>Resources</span>
+          <div className="w-3 h-3 rounded-sm" style={{ background: '#c2bbff' }} />
+          <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Resources</span>
         </div>
       </div>
 
-      <p className="mt-2 text-[11px] font-medium" style={{ color: 'var(--text-muted)' }}>
+      <p className="mt-2 text-xs font-medium" style={{ color: 'var(--text-muted)' }}>
         {activeDays} of {data.length} days show activity. Empty slots represent zero items captured on those days.
       </p>
     </div>
@@ -134,7 +134,7 @@ export function ActivityBarChart({ data }: { data: BarData[] }) {
 export function ProgressBar({ value, max, color }: { value: number; max: number; color: string }) {
   const pct = max === 0 ? 0 : Math.round((value / max) * 100)
   return (
-    <div className="w-full h-2 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.04)' }}>
+    <div className="w-full h-2.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.05)' }}>
       <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: color }} />
     </div>
   )
@@ -147,7 +147,7 @@ export function ImpactDonut({ slices, total }: { slices: ImpactSlice[]; total: n
   let cumPct = 0
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-4 sm:flex-row sm:items-center sm:justify-center">
+    <div className="flex w-full flex-col items-center justify-center gap-5 sm:flex-row sm:items-center sm:justify-center">
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="shrink-0">
         <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--border-subtle)" strokeWidth={stroke} />
         {slices.filter(s => s.count > 0).map((slice) => {
@@ -175,14 +175,14 @@ export function ImpactDonut({ slices, total }: { slices: ImpactSlice[]; total: n
           {total}
         </text>
       </svg>
-      <div className="w-full max-w-[220px] space-y-1.5">
+      <div className="w-full max-w-[250px] space-y-2">
         {slices.map(s => (
           <div key={s.level} className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded-full shrink-0" style={{ background: s.color }} />
-              <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>{IMPACT_CONFIG[s.level]?.label ?? s.level}</span>
+              <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: s.color }} />
+              <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{IMPACT_CONFIG[s.level]?.label ?? s.level}</span>
             </div>
-            <span className="text-xs font-semibold tabular-nums" style={{ color: 'var(--text-primary)' }}>{s.count}</span>
+            <span className="text-base font-semibold tabular-nums" style={{ color: 'var(--text-primary)' }}>{s.count}</span>
           </div>
         ))}
       </div>

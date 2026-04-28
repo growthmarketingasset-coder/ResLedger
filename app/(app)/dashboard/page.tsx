@@ -26,10 +26,10 @@ function SectionTitle({ children, icon: Icon, extra }: { children: React.ReactNo
   return (
     <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
       <div className="flex items-center gap-2.5">
-        <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: 'var(--accent-soft)' }}>
-          <Icon size={12} style={{ color: 'var(--accent-500)' }} />
+        <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'var(--accent-soft)' }}>
+          <Icon size={14} style={{ color: 'var(--accent-500)' }} />
         </div>
-        <h2 className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{children}</h2>
+        <h2 className="text-base font-semibold" style={{ color: 'var(--text-primary)' }}>{children}</h2>
       </div>
       {extra}
     </div>
