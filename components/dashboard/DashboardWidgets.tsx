@@ -147,8 +147,8 @@ export function ImpactDonut({ slices, total }: { slices: ImpactSlice[]; total: n
   let cumPct = 0
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-5 sm:flex-row sm:items-center sm:justify-center">
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="shrink-0">
+    <div className="flex w-full items-center justify-center gap-4">
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="h-[84px] w-[84px] shrink-0 sm:h-[96px] sm:w-[96px]">
         <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--border-subtle)" strokeWidth={stroke} />
         {slices.filter(s => s.count > 0).map((slice) => {
           const pct = total === 0 ? 0 : slice.count / total
@@ -171,18 +171,18 @@ export function ImpactDonut({ slices, total }: { slices: ImpactSlice[]; total: n
             />
           )
         })}
-        <text x={cx} y={cy + 1} textAnchor="middle" dominantBaseline="middle" fontSize="20" fontWeight="800" fill="var(--text-primary)" fontFamily="inherit">
+        <text x={cx} y={cy + 1} textAnchor="middle" dominantBaseline="middle" fontSize="18" fontWeight="800" fill="var(--text-primary)" fontFamily="inherit">
           {total}
         </text>
       </svg>
-      <div className="w-full max-w-[250px] space-y-2">
+      <div className="w-full max-w-[230px] space-y-1.5">
         {slices.map(s => (
           <div key={s.level} className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: s.color }} />
-              <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{IMPACT_CONFIG[s.level]?.label ?? s.level}</span>
+              <span className="text-sm font-medium leading-5" style={{ color: 'var(--text-secondary)' }}>{IMPACT_CONFIG[s.level]?.label ?? s.level}</span>
             </div>
-            <span className="text-base font-semibold tabular-nums" style={{ color: 'var(--text-primary)' }}>{s.count}</span>
+            <span className="text-lg sm:text-base font-semibold tabular-nums" style={{ color: 'var(--text-primary)' }}>{s.count}</span>
           </div>
         ))}
       </div>

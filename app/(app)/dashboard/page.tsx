@@ -197,7 +197,7 @@ export default async function DashboardPage() {
 
         <div className="interactive-card relative rounded-2xl overflow-hidden h-full" style={P}>
           <SectionTitle icon={Target}>Impact Distribution</SectionTitle>
-          <div className="p-4 sm:p-5 h-full flex items-center justify-center"><ImpactDonut slices={impactSlices} total={impactTotal}/></div>
+          <div className="p-4 sm:p-5 h-full flex items-center justify-center min-h-[190px] sm:min-h-0"><ImpactDonut slices={impactSlices} total={impactTotal}/></div>
         </div>
 
         <div className="h-full">
