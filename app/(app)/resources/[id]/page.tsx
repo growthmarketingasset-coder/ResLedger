@@ -71,7 +71,7 @@ export default function ResourceDetailPage({ params }: { params: { id: string } 
   }
 
   if (loading) return (
-    <div className="p-8 max-w-3xl mx-auto animate-fade-in">
+    <div className="max-w-3xl mx-auto animate-fade-in p-4 sm:p-8">
       <div className="animate-pulse space-y-4">
         <div className="h-8 rounded-xl skeleton-pulse" style={{background:"var(--bg-hover)",width:"50%"}} />
         <div className="h-40 rounded-2xl skeleton-pulse" style={{background:"var(--bg-hover)"}} />
@@ -82,23 +82,23 @@ export default function ResourceDetailPage({ params }: { params: { id: string } 
   if (!resource) return null
 
   return (
-    <div className="p-8 max-w-3xl mx-auto animate-fade-in">
-      <div className="flex items-center gap-2.5 mb-8">
+    <div className="max-w-3xl mx-auto animate-fade-in p-4 sm:p-8">
+      <div className="mb-6 flex items-center gap-2.5 sm:mb-8">
         <Link href="/resources" className="inline-flex items-center p-2 rounded-xl transition-all duration-150" style={{ color: "var(--text-muted)", background: 'var(--bg-card)', border: "1px solid var(--border-subtle)" }}><ArrowLeft size={14} /></Link>
         <span className="text-sm" style={{ color: "var(--text-muted)" }}>Resources</span>
       </div>
-      <div className="flex items-start justify-between gap-4 mb-6">
-        <div className="flex-1">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 mb-2 flex-wrap">
             <span className="badge bg-purple-50 text-purple-700">Resource</span>
             <span className="badge capitalize" style={{background:"var(--bg-hover)",color:"var(--text-muted)"}}>{resource.resource_type}</span>
             {resource.is_pinned && <span className="badge" style={{background:"#fef3c7",color:"#92400e"}}>Pinned</span>}
             {resource.industry && <span className="badge" style={{background:"var(--bg-hover)",color:"var(--text-secondary)"}}>{resource.industry}</span>}
           </div>
-          <h1 className="text-2xl font-bold tracking-tight" style={{ color: "var(--text-primary)", letterSpacing: "-0.025em" }}>{resource.title}</h1>
+          <h1 className="text-[2rem] font-extrabold leading-[1.06] tracking-tight sm:text-2xl" style={{ color: "var(--text-primary)", letterSpacing: "-0.035em" }}>{resource.title}</h1>
           <p className="text-sm mt-1" style={{ color: "var(--text-muted)" }}>{formatDate(resource.created_at)}</p>
         </div>
-        <div className="flex items-center gap-1.5 shrink-0">
+        <div className="flex shrink-0 flex-wrap items-center gap-1.5 sm:justify-end">
           <button onClick={() => setEditOpen(true)} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-150" style={{ background: 'var(--bg-card)', border: "1px solid var(--border-subtle)", color: "var(--text-secondary)" }}><Edit2 size={13} /> Edit</button>
           <button onClick={handlePin} className="p-2 rounded-xl transition-all duration-150" style={{ background: 'var(--bg-card)', border: "1px solid var(--border-subtle)", color: "var(--text-muted)" }}><Pin size={13} /></button>
           <button onClick={handleArchive} className="p-2 rounded-xl transition-all duration-150" style={{ background: 'var(--bg-card)', border: "1px solid var(--border-subtle)", color: "var(--text-muted)" }}><Archive size={13} /></button>
@@ -108,10 +108,15 @@ export default function ResourceDetailPage({ params }: { params: { id: string } 
 
       {resource.url && (
         <div className="rounded-2xl p-5 mb-5" style={{ background: 'var(--bg-card)', border: "1px solid var(--border-subtle)", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-          <a href={resource.url} target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-2 text-blue-600 hover:underline text-sm font-medium">
-            <ExternalLink size={14} />
-            {resource.url}
+          <a
+            href={resource.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full min-w-0 items-start gap-2.5 rounded-xl px-4 py-3 text-sm font-medium transition-all"
+            style={{ background: 'var(--bg-hover)', border: '1px solid var(--border-subtle)', color: '#3b82f6' }}
+          >
+            <ExternalLink size={14} className="mt-0.5 shrink-0" />
+            <span className="min-w-0 flex-1 break-all leading-6">{resource.url}</span>
           </a>
         </div>
       )}
