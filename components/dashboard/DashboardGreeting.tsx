@@ -33,17 +33,19 @@ export default function DashboardGreeting({ emailName, total, notReviewedCount }
           }
         </p>
       </div>
-      <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
+      <div className="flex w-full flex-wrap items-center gap-2 shrink-0 sm:w-auto sm:flex-nowrap">
         {notReviewedCount > 0 && (
           <div
-            className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold"
+            className="flex w-full items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold sm:w-auto"
             style={{ background: 'rgba(124,108,242,0.12)', color: 'var(--accent-400)', border: '1px solid rgba(124,108,242,0.16)' }}
           >
             <AlertTriangle size={13} />
             {notReviewedCount} to review
           </div>
         )}
-        <QuickAddButton />
+        <div className="w-full sm:w-auto">
+          <QuickAddButton />
+        </div>
       </div>
     </div>
   )

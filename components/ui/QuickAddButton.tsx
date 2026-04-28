@@ -36,8 +36,8 @@ export default function QuickAddButton() {
   }
 
   return (
-    <div className="relative" ref={ref}>
-      <button onClick={() => setOpen(!open)} className="btn-primary gap-2">
+    <div className="relative w-full sm:w-auto" ref={ref}>
+      <button onClick={() => setOpen(!open)} className="btn-primary gap-2 sm:w-auto">
         <Plus size={15} />
         Add Entry
         <ChevronDown size={13} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
@@ -45,7 +45,7 @@ export default function QuickAddButton() {
 
       {open && (
         <div
-          className="absolute right-0 top-12 z-50 rounded-2xl py-2 w-56 animate-fade-in"
+          className="absolute left-0 right-0 top-12 z-50 w-full rounded-2xl py-2 animate-fade-in sm:left-auto sm:right-0 sm:w-56"
           style={{ background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-drop)' }}
         >
           <p className="text-xs font-semibold uppercase tracking-[0.16em] px-4 pb-2 pt-1" style={{ color: 'var(--text-faint)', fontSize: '10px' }}>

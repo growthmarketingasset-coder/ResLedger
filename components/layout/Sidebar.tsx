@@ -102,7 +102,7 @@ export default function Sidebar({ user }: { user: User }) {
         </Link>
       </div>
 
-      <div className="px-3 flex-1 overflow-y-auto">
+      <div className="px-3 flex-1 overflow-y-auto pb-4">
         <p className="px-3 mb-2 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: 'var(--text-faint)' }}>
           Workspace
         </p>
@@ -159,7 +159,7 @@ export default function Sidebar({ user }: { user: User }) {
 
   return (
     <>
-      <div className="lg:hidden sticky top-0 z-30 flex items-center justify-between px-4 py-3 border-b" style={{ background: 'rgba(17,21,29,0.92)', borderColor: 'var(--border-subtle)', backdropFilter: 'blur(14px)' }}>
+      <div className="lg:hidden sticky top-0 z-30 flex items-center justify-between gap-3 px-4 py-3 border-b" style={{ background: 'rgba(17,21,29,0.92)', borderColor: 'var(--border-subtle)', backdropFilter: 'blur(14px)' }}>
         <div className="flex items-center gap-3 min-w-0">
           <div className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 noise relative overflow-hidden" style={{ background: 'var(--grad-accent)' }}>
             <Sparkles size={14} className="text-white relative z-10" strokeWidth={2.25} />
@@ -182,7 +182,7 @@ export default function Sidebar({ user }: { user: User }) {
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-40">
           <button className="absolute inset-0 w-full h-full" style={{ background: 'rgba(8,10,15,0.7)' }} onClick={closeMobile} aria-label="Close navigation overlay" />
-          <div className="absolute inset-y-0 left-0 w-[86vw] max-w-[320px] flex flex-col" style={{ background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-drop)' }}>
+          <div className="absolute inset-y-0 left-0 w-[88vw] max-w-[340px] flex flex-col" style={{ background: 'var(--bg-sidebar)', borderRight: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-drop)' }}>
             <div className="flex items-center justify-end px-3 pt-3">
               <button
                 onClick={closeMobile}

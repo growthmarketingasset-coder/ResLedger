@@ -186,7 +186,7 @@ export default function ToolsPage() {
           tagFilter={tagFilter} onTagChange={setTagFilter} tags={tags} extras={pricingExtras} />
       </div>
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">{[1,2,3,4,5,6].map(i => <div key={i} className="rounded-2xl animate-pulse h-40" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }} />)}</div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">{[1,2,3,4,5,6].map(i => <div key={i} className="rounded-2xl animate-pulse h-40" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }} />)}</div>
       ) : items.length === 0 ? (
         <EmptyState icon={Wrench} title="No tools yet" description="Catalog the tools that make your work easier." action={<button onClick={() => setModalOpen(true)} className="btn-primary"><Plus size={15} />Add Tool</button>} />
       ) : (

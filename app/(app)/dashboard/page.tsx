@@ -148,20 +148,20 @@ export default async function DashboardPage() {
   const P={background:'var(--bg-card)',border:'1px solid var(--border-subtle)',boxShadow:'var(--shadow-card)'}
 
   return (
-    <div className="p-4 sm:p-6 w-full max-w-[1600px] mx-auto">
+    <div className="w-full max-w-[1600px] mx-auto p-4 sm:p-6">
       <DashboardGreeting emailName={emailName} total={total} notReviewedCount={notReviewedCount ?? 0} />
 
       {/* Hero */}
       <div className="mb-5 rounded-2xl p-4 sm:p-5 relative overflow-hidden" style={{background:'linear-gradient(180deg, rgba(124,108,242,0.14) 0%, rgba(26,29,36,1) 46%)',border:'1px solid rgba(124,108,242,0.16)',boxShadow:'var(--shadow-card)'}}>
         <div className="absolute top-0 right-0 w-56 h-56 rounded-full opacity-50" style={{background:'radial-gradient(circle, rgba(124,108,242,0.26) 0%, transparent 68%)',transform:'translate(30%,-30%)'}}/>
-        <div className="relative flex items-start sm:items-center justify-between flex-wrap gap-4">
+        <div className="relative flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.16em] mb-1" style={{fontSize:'10px', color:'var(--text-faint)'}}>Total Knowledge</p>
             <p className="text-4xl sm:text-5xl font-bold tabular-nums" style={{letterSpacing:'-0.04em', color:'var(--text-primary)'}}>{total}</p>
           </div>
           <div className="grid grid-cols-2 sm:flex gap-2 sm:gap-3 w-full sm:w-auto">
             {[{label:'Learnings',count:learningsCount??0,href:'/learnings'},{label:'Resources',count:resourcesCount??0,href:'/resources'},{label:'Ideas',count:ideasCount??0,href:'/ideas'},{label:'AI Strategy',count:aiStratCount??0,href:'/ai-strategy'}].map(s=>(
-              <Link key={s.href} href={s.href}>
+              <Link key={s.href} href={s.href} className="min-w-0">
                 <div className="text-center px-3 py-2 rounded-xl transition-all hover:bg-[rgba(255,255,255,0.06)] h-full" style={{background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.04)'}}>
                   <p className="text-xl font-bold tabular-nums" style={{ color:'var(--text-primary)' }}>{s.count}</p>
                   <p className="text-xs font-medium whitespace-nowrap" style={{ color:'var(--text-muted)' }}>{s.label}</p>
@@ -173,7 +173,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* 6-stat grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-8 gap-3 mb-5">
+      <div className="mb-5 grid grid-cols-2 gap-3 lg:grid-cols-4 xl:grid-cols-8">
         {[
           {label:'Learnings',count:learningsCount??0,href:'/learnings',icon:<BookOpen size={17} style={{color:'var(--accent-400)'}}/>,gradient:'linear-gradient(180deg, rgba(124,108,242,0.12), rgba(124,108,242,0.04))'},
           {label:'Resources',count:resourcesCount??0,href:'/resources',icon:<Link2 size={17} style={{color:'var(--accent-400)'}}/>,gradient:'linear-gradient(180deg, rgba(124,108,242,0.12), rgba(124,108,242,0.04))'},
@@ -192,12 +192,12 @@ export default async function DashboardPage() {
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4 items-start">
         <div className="rounded-2xl overflow-hidden" style={P}>
           <SectionTitle icon={BarChart3}>Activity (7 days)</SectionTitle>
-          <div className="p-5"><ActivityBarChart data={days7}/></div>
+          <div className="p-4 sm:p-5"><ActivityBarChart data={days7}/></div>
         </div>
 
         <div className="rounded-2xl overflow-hidden" style={P}>
           <SectionTitle icon={Target}>Impact Distribution</SectionTitle>
-          <div className="p-5"><ImpactDonut slices={impactSlices} total={impactTotal}/></div>
+          <div className="p-4 sm:p-5"><ImpactDonut slices={impactSlices} total={impactTotal}/></div>
         </div>
 
         <div className="self-start">
@@ -206,12 +206,12 @@ export default async function DashboardPage() {
 
         <div className="rounded-2xl overflow-hidden xl:col-span-2" style={P}>
           <SectionTitle icon={Zap} extra={<span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{background:'rgba(124,108,242,0.12)',color:'var(--accent-400)'}}>{highPotential.length}</span>}>High Potential</SectionTitle>
-          <div className="p-5"><HighPotentialList items={highPotential}/></div>
+          <div className="p-4 sm:p-5"><HighPotentialList items={highPotential}/></div>
         </div>
 
         <div className="rounded-2xl overflow-hidden" style={P}>
           <SectionTitle icon={AlertTriangle} extra={(notReviewedCount??0)>0?<span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{background:'rgba(124,108,242,0.12)',color:'var(--accent-400)'}}>{notReviewedCount}</span>:null}>Not Reviewed</SectionTitle>
-          <div className="p-5"><NotReviewedList items={notReviewed}/></div>
+          <div className="p-4 sm:p-5"><NotReviewedList items={notReviewed}/></div>
         </div>
       </div>
 
@@ -220,7 +220,7 @@ export default async function DashboardPage() {
         {/* Recently added */}
         <div className="rounded-2xl overflow-hidden h-full" style={P}>
           <SectionTitle icon={Clock}>Recently Added</SectionTitle>
-          <div className="p-5 h-full flex flex-col">
+          <div className="p-4 sm:p-5 h-full flex flex-col">
             {recent.length===0?(
               <div className="text-center py-8"><TrendingUp size={20} className="mx-auto mb-2" style={{color:'var(--text-faint)'}}/><p className="text-xs" style={{color:'var(--text-muted)'}}>Nothing yet. Start adding entries!</p></div>
             ):(
@@ -255,7 +255,7 @@ export default async function DashboardPage() {
         {/* Pinned */}
         <div className="rounded-2xl overflow-hidden h-full" style={P}>
           <SectionTitle icon={Pin} extra={<span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{background:'rgba(124,108,242,0.10)',color:'var(--accent-400)'}}>{pinned.length}</span>}>Pinned</SectionTitle>
-          <div className="p-5 h-full flex flex-col">
+          <div className="p-4 sm:p-5 h-full flex flex-col">
             {pinned.length===0?(
               <div className="text-center py-8"><Pin size={20} className="mx-auto mb-2" style={{color:'var(--text-faint)'}}/><p className="text-xs" style={{color:'var(--text-muted)'}}>Pin entries to see them here</p></div>
             ):(
@@ -284,7 +284,7 @@ export default async function DashboardPage() {
         {/* Knowledge Gaps */}
         <div className="rounded-2xl overflow-hidden h-full" style={P}>
           <SectionTitle icon={BarChart3}>Knowledge by Industry</SectionTitle>
-          <div className="p-5 h-full flex flex-col">
+          <div className="p-4 sm:p-5 h-full flex flex-col">
             <KnowledgeGaps gaps={gapData} totalIndustries={Object.keys(indMap).length}/>
             {gapData.length===0&&<p className="text-xs text-center mt-2" style={{color:'var(--text-muted)'}}>Tag entries with industries to see coverage gaps</p>}
           </div>

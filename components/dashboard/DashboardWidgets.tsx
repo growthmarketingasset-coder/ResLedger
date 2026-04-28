@@ -62,7 +62,7 @@ export function ActivityBarChart({ data }: { data: BarData[] }) {
 
   return (
     <div className="w-full">
-      <div className="flex gap-3">
+      <div className="flex gap-2 sm:gap-3">
         <div className="w-7 shrink-0 pt-1">
           <div className="flex h-[90px] flex-col justify-between">
             {ticks.map(tick => (
@@ -113,7 +113,7 @@ export function ActivityBarChart({ data }: { data: BarData[] }) {
         </div>
       </div>
 
-      <div className="flex items-center gap-4 mt-2 flex-wrap">
+      <div className="mt-2 flex flex-wrap items-center gap-3 sm:gap-4">
         <div className="flex items-center gap-1.5">
           <div className="w-2.5 h-2.5 rounded-sm" style={{ background: '#8f81f6' }} />
           <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>Learnings</span>
@@ -147,7 +147,7 @@ export function ImpactDonut({ slices, total }: { slices: ImpactSlice[]; total: n
   let cumPct = 0
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="shrink-0">
         <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--border-subtle)" strokeWidth={stroke} />
         {slices.filter(s => s.count > 0).map((slice) => {
@@ -175,7 +175,7 @@ export function ImpactDonut({ slices, total }: { slices: ImpactSlice[]; total: n
           {total}
         </text>
       </svg>
-      <div className="space-y-1.5 flex-1">
+      <div className="w-full flex-1 space-y-1.5">
         {slices.map(s => (
           <div key={s.level} className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-1.5">
@@ -242,15 +242,15 @@ export function NotReviewedList({ items }: { items: ReviewItem[] }) {
         const pill = TYPE_PILL[item.type] || { bg: 'var(--bg-hover)', text: 'var(--text-secondary)' }
         return (
           <Link key={`${item.type}-${item.id}`} href={`/${item.tableKey}/${item.id}`}>
-            <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group cursor-pointer hover:bg-[rgba(255,255,255,0.03)]">
+            <div className="flex flex-wrap items-center gap-2 px-3 py-2.5 rounded-xl transition-all group cursor-pointer hover:bg-[rgba(255,255,255,0.03)] sm:flex-nowrap sm:gap-3">
               <AlertTriangle size={13} style={{ color: 'var(--accent-500)', flexShrink: 0 }} />
-              <span className="text-sm font-medium truncate flex-1 group-hover:text-[var(--accent-400)] transition-colors" style={{ color: 'var(--text-primary)' }}>
+              <span className="min-w-0 flex-1 text-sm font-medium transition-colors sm:truncate group-hover:text-[var(--accent-400)]" style={{ color: 'var(--text-primary)' }}>
                 {item.title}
               </span>
               <span className="text-xs px-2 py-0.5 rounded-full font-semibold shrink-0" style={{ background: pill.bg, color: pill.text }}>
                 {ENTRY_TYPE_LABELS[item.type] || item.type}
               </span>
-              <ArrowRight size={11} className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--accent-500)' }} />
+              <ArrowRight size={11} className="ml-auto shrink-0 opacity-100 transition-opacity lg:opacity-0 group-hover:opacity-100" style={{ color: 'var(--accent-500)' }} />
             </div>
           </Link>
         )
@@ -274,15 +274,15 @@ export function HighPotentialList({ items }: { items: HighPotentialItem[] }) {
         const cfg = IMPACT_CONFIG[item.impact_level]
         return (
           <Link key={`${item.type}-${item.id}`} href={`/${item.tableKey}/${item.id}`}>
-            <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group cursor-pointer hover:bg-[rgba(255,255,255,0.03)]">
+            <div className="flex flex-wrap items-center gap-2 px-3 py-2.5 rounded-xl transition-all group cursor-pointer hover:bg-[rgba(255,255,255,0.03)] sm:flex-nowrap sm:gap-3">
               <div className="w-2 h-2 rounded-full shrink-0" style={{ background: cfg?.color || 'var(--accent-500)' }} />
-              <span className="text-sm font-medium truncate flex-1 group-hover:text-[var(--accent-400)] transition-colors" style={{ color: 'var(--text-primary)' }}>
+              <span className="min-w-0 flex-1 text-sm font-medium transition-colors sm:truncate group-hover:text-[var(--accent-400)]" style={{ color: 'var(--text-primary)' }}>
                 {item.title}
               </span>
               <span className="text-xs px-2 py-0.5 rounded-full font-semibold shrink-0" style={{ background: cfg?.bg, color: cfg?.color, border: `1px solid ${cfg?.border}` }}>
                 {cfg?.label || item.impact_level}
               </span>
-              <ArrowRight size={11} className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--accent-500)' }} />
+              <ArrowRight size={11} className="ml-auto shrink-0 opacity-100 transition-opacity lg:opacity-0 group-hover:opacity-100" style={{ color: 'var(--accent-500)' }} />
             </div>
           </Link>
         )
@@ -308,12 +308,12 @@ export function WeeklyReport({ stats, userName }: { stats: WeeklyStats; userName
     >
       <div className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-30" style={{ background: 'radial-gradient(circle, rgba(124,108,242,0.22) 0%, transparent 72%)', transform: 'translate(30%,-30%)' }} />
       <div className="relative">
-        <div className="flex items-center justify-between mb-4">
-          <div>
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0">
             <p className="text-xs font-semibold uppercase tracking-[0.16em] mb-1" style={{ color: 'var(--text-faint)' }}>Weekly Report</p>
             <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{fmt(weekStart)} - {fmt(today)}</p>
           </div>
-          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl" style={{ background: 'rgba(124,108,242,0.12)', border: '1px solid rgba(124,108,242,0.18)' }}>
+          <div className="flex w-full items-center justify-center gap-1.5 rounded-xl px-3 py-1.5 sm:w-auto" style={{ background: 'rgba(124,108,242,0.12)', border: '1px solid rgba(124,108,242,0.18)' }}>
             <Calendar size={12} style={{ color: 'var(--accent-500)' }} />
             <span className="text-xs font-semibold" style={{ color: 'var(--accent-400)' }}>{stats.streak}d streak</span>
           </div>

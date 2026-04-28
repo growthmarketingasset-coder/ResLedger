@@ -60,7 +60,7 @@ export default function EntryCard({
         onClick={handleCardClick}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="group animate-slide-in rounded-2xl relative overflow-hidden cursor-pointer transition-all duration-200"
+        className="group animate-slide-in rounded-2xl relative overflow-hidden cursor-pointer transition-all duration-200 touch-manipulation"
         style={{
           background: 'var(--bg-card)',
           border: `1px solid ${hovered ? 'var(--border-default)' : 'var(--border-subtle)'}`,
@@ -70,9 +70,9 @@ export default function EntryCard({
       >
         <div className="h-0.5 w-full" style={{ background: cfg.dot, opacity: hovered ? 1 : 0.4, transition: 'opacity 0.2s' }} />
 
-        <div className="p-5">
-          <div className="flex items-center justify-between gap-2 mb-3">
-            <div className="flex items-center gap-1.5 flex-1 min-w-0">
+        <div className="p-4 sm:p-5">
+          <div className="flex items-start justify-between gap-2 mb-3">
+            <div className="flex items-center gap-1.5 flex-1 min-w-0 flex-wrap">
               {dragHandle}
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold shrink-0" style={{ background: cfg.bg, color: cfg.text }}>
                 <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: cfg.dot }} />
@@ -85,14 +85,14 @@ export default function EntryCard({
               )}
             </div>
 
-            <div className="flex items-center gap-0.5 shrink-0" data-menu="true">
+            <div className="flex items-center gap-0.5 shrink-0 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity" data-menu="true">
               {url && (
                 <a
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={e => e.stopPropagation()}
-                  className="p-1.5 rounded-lg transition-all opacity-0 group-hover:opacity-100"
+                  className="p-1.5 rounded-lg transition-all"
                   style={{ color: 'var(--text-muted)' }}
                   onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--bg-hover)'}
                   onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}
@@ -103,7 +103,7 @@ export default function EntryCard({
               <div className="relative" ref={menuRef}>
                 <button
                   onClick={e => { e.stopPropagation(); setMenuOpen(!menuOpen) }}
-                  className="p-1.5 rounded-lg transition-all opacity-0 group-hover:opacity-100"
+                  className="p-1.5 rounded-lg transition-all"
                   style={{ color: 'var(--text-muted)' }}
                   onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--bg-hover)'}
                   onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}

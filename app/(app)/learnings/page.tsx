@@ -75,7 +75,7 @@ export default function LearningsPage() {
     <PageShell
       title="Learnings"
       description={`${items.length} captured insights`}
-      action={<button onClick={() => setModalOpen(true)} className="btn-primary"><Plus size={15} /> New Learning</button>}
+      action={<button onClick={() => setModalOpen(true)} className="btn-primary"><Plus size={15} /> <span>New Learning</span></button>}
     >
       <SectionChart tableName="learnings" color="#3b82f6" label="learnings" />
 
@@ -85,7 +85,7 @@ export default function LearningsPage() {
       </div>
 
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 stagger">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 stagger">
           {[1,2,3,4,5,6].map(i => (
             <div key={i} className="rounded-2xl animate-pulse h-44"
               style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }} />
@@ -93,7 +93,7 @@ export default function LearningsPage() {
         </div>
       ) : items.length === 0 ? (
         <EmptyState icon={BookOpen} title="No learnings yet" description="Start capturing key lessons, insights, and takeaways."
-          action={<button onClick={() => setModalOpen(true)} className="btn-primary"><Plus size={15} />Add Learning</button>} />
+          action={<button onClick={() => setModalOpen(true)} className="btn-primary"><Plus size={15} /> <span>Add Learning</span></button>} />
       ) : (
         <DraggableGrid
           items={items}

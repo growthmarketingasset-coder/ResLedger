@@ -110,6 +110,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   letter-spacing: -0.01em;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+canvas,
+video {
+  max-width: 100%;
 }
 
 body::before {
@@ -230,7 +238,7 @@ body::before {
   }
 
   .card {
-    @apply rounded-[16px] p-5;
+    @apply rounded-[16px] p-4 sm:p-5;
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
     box-shadow: var(--shadow-card);
@@ -247,6 +255,24 @@ body::before {
 
   .badge {
     @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold;
+  }
+}
+
+@media (max-width: 639px) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .form-input,
+  .form-select {
+    min-height: 44px;
+  }
+
+  .form-textarea {
+    min-height: 132px;
   }
 }
 

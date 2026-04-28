@@ -54,7 +54,7 @@ export default function DraggableGrid({ items, onReorder, renderItem, keyExtract
   }, [])
 
   return (
-    <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 ${className}`}>
+    <div className={`grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 ${className}`}>
       {items.map(item => {
         const key = keyExtractor(item)
         const isDragging = draggingId === key
@@ -63,7 +63,7 @@ export default function DraggableGrid({ items, onReorder, renderItem, keyExtract
         // Compact drag handle — sits inline with the type pill, not its own wide block
         const dragHandle = (
           <div
-            className="drag-handle inline-flex items-center justify-center w-5 h-5 rounded-lg cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-60 hover:!opacity-100 transition-opacity shrink-0"
+            className="drag-handle inline-flex items-center justify-center w-5 h-5 rounded-lg cursor-grab active:cursor-grabbing opacity-100 lg:opacity-0 lg:group-hover:opacity-60 hover:!opacity-100 transition-opacity shrink-0"
             style={{ color: 'var(--text-faint)' }}
             title="Drag to reorder"
             onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--bg-hover)'}
@@ -85,7 +85,7 @@ export default function DraggableGrid({ items, onReorder, renderItem, keyExtract
               opacity: isDragging ? 0.35 : 1,
               transition: 'opacity 0.15s ease, transform 0.15s ease',
               transform: isOver ? 'scale(1.015)' : 'scale(1)',
-              outline: isOver ? '2px solid rgba(34,197,94,0.45)' : 'none',
+              outline: isOver ? '2px solid rgba(124,108,242,0.45)' : 'none',
               outlineOffset: '2px',
               borderRadius: isOver ? '16px' : '0',
             }}
