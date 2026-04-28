@@ -142,12 +142,12 @@ export function ProgressBar({ value, max, color }: { value: number; max: number;
 
 interface ImpactSlice { level: string; count: number; color: string }
 export function ImpactDonut({ slices, total }: { slices: ImpactSlice[]; total: number }) {
-  const size = 80; const cx = 40; const cy = 40; const r = 30; const stroke = 10
+  const size = 96; const cx = 48; const cy = 48; const r = 34; const stroke = 11
   const circumference = 2 * Math.PI * r
   let cumPct = 0
 
   return (
-    <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+    <div className="flex w-full flex-col items-center justify-center gap-4 sm:flex-row sm:items-center sm:justify-center">
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="shrink-0">
         <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--border-subtle)" strokeWidth={stroke} />
         {slices.filter(s => s.count > 0).map((slice) => {
@@ -171,11 +171,11 @@ export function ImpactDonut({ slices, total }: { slices: ImpactSlice[]; total: n
             />
           )
         })}
-        <text x={cx} y={cy + 1} textAnchor="middle" dominantBaseline="middle" fontSize="14" fontWeight="700" fill="var(--text-primary)" fontFamily="inherit">
+        <text x={cx} y={cy + 1} textAnchor="middle" dominantBaseline="middle" fontSize="20" fontWeight="800" fill="var(--text-primary)" fontFamily="inherit">
           {total}
         </text>
       </svg>
-      <div className="w-full flex-1 space-y-1.5">
+      <div className="w-full max-w-[220px] space-y-1.5">
         {slices.map(s => (
           <div key={s.level} className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-1.5">
