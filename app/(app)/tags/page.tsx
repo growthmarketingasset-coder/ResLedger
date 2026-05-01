@@ -86,7 +86,7 @@ export default function TagsPage() {
   return (
     <PageShell title="Tags" description="Manage your tag library">
       {/* Create form */}
-      <div className="rounded-2xl p-5 mb-6" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04)' }}>
+      <div className="surface-card rounded-2xl p-5 mb-6" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: '0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04)' }}>
         <h3 className="text-sm font-semibold mb-4" style={{ color: 'var(--text-primary)' }}>Create new tag</h3>
         <form onSubmit={handleCreate} className="flex items-center gap-3 flex-wrap">
           <input value={newName} onChange={e => setNewName(e.target.value)} placeholder="Tag name…" className="form-input flex-1 min-w-40" />
@@ -105,7 +105,7 @@ export default function TagsPage() {
       ) : (
         <div className="space-y-2">
           {tags.map(tag => (
-            <div key={tag.id} className="flex items-center gap-3 px-5 py-3.5 rounded-2xl" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+            <div key={tag.id} className="surface-card flex items-center gap-3 px-5 py-3.5 rounded-2xl" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
               {editingId === tag.id ? (
                 <>
                   <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: editColor }} />

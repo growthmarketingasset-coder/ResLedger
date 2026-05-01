@@ -261,10 +261,8 @@ export default function SearchPage() {
                 return (
                   <Link key={`${result.entryType}-${result.id}`} href={`/${result.tableKey}/${result.id}`}>
                     <div
-                      className="group rounded-2xl p-4 transition-all duration-150 cursor-pointer"
+                      className="group surface-card rounded-2xl p-4 cursor-pointer"
                       style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-sm)' }}
-                      onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'var(--shadow-hover)'; el.style.borderColor = 'var(--border-default)'; el.style.transform = 'translateY(-1px)' }}
-                      onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'var(--shadow-sm)'; el.style.borderColor = 'var(--border-subtle)'; el.style.transform = 'translateY(0)' }}
                     >
                       <div className="flex items-start gap-3">
                         <div className="p-2 rounded-xl shrink-0 mt-0.5" style={{ background: pill.bg, border: '1px solid rgba(124,108,242,0.12)' }}>

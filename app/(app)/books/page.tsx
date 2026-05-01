@@ -46,7 +46,7 @@ function BookCard({ item, onEdit, onPin, onArchive, onDelete, dragHandle }: {
         onClick={e => { const t = e.target as HTMLElement; if (t.closest('button') || t.closest('[data-menu]') || t.closest('.drag-handle')) return; router.push(`/books/${item.id}`) }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        className="group rounded-2xl relative overflow-hidden cursor-pointer transition-all duration-200"
+        className="group surface-card rounded-2xl relative overflow-hidden cursor-pointer transition-all duration-200"
         style={{ background: 'var(--bg-card)', border: `1px solid ${hovered ? 'var(--border-default)' : 'var(--border-subtle)'}`, boxShadow: hovered ? 'var(--shadow-hover)' : 'var(--shadow-card)', transform: hovered ? 'translateY(-2px)' : 'none' }}>
         {/* Blue top bar */}
         <div className="h-0.5" style={{ background: '#3b82f6', opacity: hovered ? 1 : 0.35 }} />

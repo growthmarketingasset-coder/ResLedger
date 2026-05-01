@@ -60,10 +60,8 @@ function TemplateCard({
     <>
       <div
         onClick={handleCardClick}
-        className="group rounded-2xl p-5 transition-all duration-200 cursor-pointer"
+        className="group surface-card rounded-2xl p-5 cursor-pointer"
         style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-card)' }}
-        onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'var(--shadow-hover)'; el.style.transform = 'translateY(-1px)' }}
-        onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'var(--shadow-card)'; el.style.transform = 'translateY(0)' }}
       >
         {/* Header */}
         <div className="flex items-start gap-3 mb-3">

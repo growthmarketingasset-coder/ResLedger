@@ -46,10 +46,9 @@ function ToolCard({ item, onPin, onArchive, onDelete, onEdit, dragHandle }: {
 
   return (
     <>
-      <div onClick={handleCardClick} className="group rounded-2xl p-5 transition-all duration-200 cursor-pointer"
+      <div onClick={handleCardClick} className="group surface-card rounded-2xl p-5 cursor-pointer"
         style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-card)' }}
-        onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'var(--shadow-hover)'; el.style.transform = 'translateY(-1px)' }}
-        onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'var(--shadow-card)'; el.style.transform = 'translateY(0)' }}>
+      >
 
         <div className="flex items-start gap-3 mb-3">
           {dragHandle}
@@ -59,7 +58,7 @@ function ToolCard({ item, onPin, onArchive, onDelete, onEdit, dragHandle }: {
               <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold capitalize" style={{ background: ps.bg, color: ps.color }}>{item.pricing}</span>
               {item.is_pinned && <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: '#fffbeb', color: '#b45309' }}>Pinned</span>}
             </div>
-            <h3 className="text-sm font-semibold truncate group-hover:text-green-600 transition-colors" style={{ color: 'var(--text-primary)' }}>{item.title}</h3>
+            <h3 className="text-sm font-semibold truncate transition-colors group-hover:text-[var(--accent-400)]" style={{ color: 'var(--text-primary)' }}>{item.title}</h3>
             {item.category && <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{item.category}</p>}
           </div>
           <div className="flex items-center gap-0.5 shrink-0" data-menu="true">

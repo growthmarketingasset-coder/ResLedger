@@ -52,10 +52,8 @@ function ResourceCard({
     <>
       <div
         onClick={handleCardClick}
-        className="group rounded-2xl p-5 transition-all duration-200 cursor-pointer"
+        className="group surface-card rounded-2xl p-5 cursor-pointer"
         style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-card)' }}
-        onMouseEnter={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'var(--shadow-hover)'; el.style.transform = 'translateY(-1px)' }}
-        onMouseLeave={e => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = 'var(--shadow-card)'; el.style.transform = 'translateY(0)' }}
       >
         {/* Header */}
         <div className="flex items-start gap-3 mb-3">
@@ -73,7 +71,7 @@ function ResourceCard({
                 </span>
               )}
             </div>
-            <h3 className="text-sm font-semibold truncate group-hover:text-green-600 transition-colors" style={{ color: 'var(--text-primary)' }}>
+            <h3 className="text-sm font-semibold truncate transition-colors group-hover:text-[var(--accent-400)]" style={{ color: 'var(--text-primary)' }}>
               {item.title}
             </h3>
           </div>

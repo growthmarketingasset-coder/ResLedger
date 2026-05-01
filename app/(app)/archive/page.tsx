@@ -69,15 +69,15 @@ export default function ArchivePage() {
       title="Archive"
       description={`${items.length} archived item${items.length !== 1 ? 's' : ''}`}
     >
-      <div className="flex items-center gap-2 mb-5 p-3 rounded-2xl" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+      <div className="surface-card flex items-center gap-2 mb-5 p-3 rounded-2xl" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
         <div className="relative flex-1 min-w-48">
           <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--text-muted)' }} />
           <input value={search} onChange={e => setSearch(e.target.value)}
             placeholder="Search archived items..." 
             className="w-full pl-9 pr-3 py-2 text-sm rounded-xl border transition-all duration-150"
             style={{ background: 'var(--bg-base)', borderColor: 'transparent', color: 'var(--text-primary)', outline: 'none', fontFamily: 'inherit' }}
-            onFocus={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.borderColor = '#86efac'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(34,197,94,0.12)' }}
-            onBlur={e => { e.currentTarget.style.background = '#f8fafc'; e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none' }}
+            onFocus={e => { e.currentTarget.style.background = 'var(--bg-card)'; e.currentTarget.style.borderColor = 'var(--border-focus)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(124,108,242,0.12)' }}
+            onBlur={e => { e.currentTarget.style.background = 'var(--bg-base)'; e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none' }}
           />
         </div>
         <div style={{ width: '1px', height: '20px', background: '#e8edf2', flexShrink: 0 }} />
