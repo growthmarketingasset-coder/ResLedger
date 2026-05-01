@@ -76,7 +76,7 @@ export default function Sidebar({ user }: { user: User }) {
 
   const NavContent = ({ mobile = false }: { mobile?: boolean }) => (
     <>
-      <div className={cn('px-5 pt-6 pb-4', mobile && 'pt-4', !mobile && desktopCollapsed && 'px-3')}>
+      <div className={cn('px-5 pt-6 pb-4', mobile && 'pt-4', !mobile && desktopCollapsed && 'px-4')}>
         <div className="flex items-center gap-3">
           <div
             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 noise relative overflow-hidden"
@@ -93,13 +93,13 @@ export default function Sidebar({ user }: { user: User }) {
         </div>
       </div>
 
-      <div className="px-3 pb-3">
+      <div className={cn('px-3 pb-3', !mobile && desktopCollapsed && 'px-2')}>
         <Link
           href="/search"
           onClick={closeMobile}
           className={cn(
             'flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 border',
-            !mobile && desktopCollapsed && 'justify-center px-2',
+            !mobile && desktopCollapsed && 'justify-center px-2.5',
             isActive('/search') ? 'sidebar-item active' : ''
           )}
           style={!isActive('/search') ? {
@@ -126,14 +126,14 @@ export default function Sidebar({ user }: { user: User }) {
         </Link>
       </div>
 
-      <div className="px-3 flex-1 overflow-y-auto pb-4">
+      <div className={cn('px-3 flex-1 overflow-y-auto pb-4', !mobile && desktopCollapsed && 'px-2')}>
         {!desktopCollapsed && <p className="px-3 mb-2 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: 'var(--text-faint)' }}>
           Workspace
         </p>}
         <nav className="space-y-1.5 mb-5">
           {NAV_ITEMS.map(({ href, label, icon: Icon }) => (
-            <Link key={href} href={href} onClick={closeMobile} title={desktopCollapsed ? label : undefined} className={cn('sidebar-item', desktopCollapsed && !mobile && 'justify-center px-2', isActive(href) ? 'active' : '')}>
-              <Icon size={15} strokeWidth={isActive(href) ? 2.25 : 2} />
+            <Link key={href} href={href} onClick={closeMobile} title={desktopCollapsed ? label : undefined} className={cn('sidebar-item', desktopCollapsed && !mobile && 'justify-center px-2.5 py-3', isActive(href) ? 'active' : '')}>
+              <Icon size={desktopCollapsed && !mobile ? 18 : 15} strokeWidth={isActive(href) ? 2.25 : 2} />
               {(!desktopCollapsed || mobile) && <span className="flex-1">{label}</span>}
               {(!desktopCollapsed || mobile) && isActive(href) && <ChevronRight size={12} style={{ color: 'var(--accent-500)' }} />}
             </Link>
@@ -145,8 +145,8 @@ export default function Sidebar({ user }: { user: User }) {
         </p>}
         <nav className="space-y-1.5">
           {SECONDARY_ITEMS.map(({ href, label, icon: Icon }) => (
-            <Link key={href} href={href} onClick={closeMobile} title={desktopCollapsed ? label : undefined} className={cn('sidebar-item', desktopCollapsed && !mobile && 'justify-center px-2', isActive(href) ? 'active' : '')}>
-              <Icon size={15} strokeWidth={isActive(href) ? 2.25 : 2} />
+            <Link key={href} href={href} onClick={closeMobile} title={desktopCollapsed ? label : undefined} className={cn('sidebar-item', desktopCollapsed && !mobile && 'justify-center px-2.5 py-3', isActive(href) ? 'active' : '')}>
+              <Icon size={desktopCollapsed && !mobile ? 18 : 15} strokeWidth={isActive(href) ? 2.25 : 2} />
               {(!desktopCollapsed || mobile) && <span>{label}</span>}
             </Link>
           ))}
@@ -154,7 +154,7 @@ export default function Sidebar({ user }: { user: User }) {
       </div>
 
       <div className="p-3">
-        <div className={cn('flex items-center rounded-2xl', desktopCollapsed && !mobile ? 'justify-center p-2' : 'gap-2.5 p-3')} style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
+        <div className={cn('flex items-center rounded-2xl', desktopCollapsed && !mobile ? 'justify-center p-2.5' : 'gap-2.5 p-3')} style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
           <div
             className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-xs font-black shrink-0 noise relative overflow-hidden"
             style={{ background: 'var(--grad-accent)' }}
@@ -223,7 +223,7 @@ export default function Sidebar({ user }: { user: User }) {
       )}
 
       <aside
-        className={cn('hidden lg:flex h-full flex-col shrink-0 relative transition-[width] duration-200', desktopCollapsed ? 'w-[78px]' : 'w-60')}
+        className={cn('hidden lg:flex h-full flex-col shrink-0 relative transition-[width] duration-200', desktopCollapsed ? 'w-[88px]' : 'w-60')}
         style={{
           background: 'var(--bg-sidebar)',
           borderRight: '1px solid var(--border-subtle)',
