@@ -5,16 +5,16 @@ import { useRouter } from 'next/navigation'
 import Modal from '@/components/ui/Modal'
 import BookForm from '../BookForm'
 import ConfirmDialog from '@/components/ui/ConfirmDialog'
-import { ArrowLeft, Edit2, Trash2, Archive, Minus, Plus } from 'lucide-react'
+import { ArrowLeft, Edit2, Trash2, Archive, Minus, Plus, Check, PartyPopper } from 'lucide-react'
 import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
 import toast from 'react-hot-toast'
 
 const STATUS_CFG: Record<string, { label: string; bg: string; color: string }> = {
-  to_read:   { label: 'To Read',   bg: 'var(--bg-hover)', color: 'var(--text-muted)' },
-  reading:   { label: 'Reading',   bg: '#e0f2fe',         color: '#0369a1' },
-  completed: { label: 'Completed', bg: '#ccfbf1',         color: '#065f46' },
-  paused:    { label: 'Paused',    bg: '#fef3c7',         color: '#92400e' },
+  to_read: { label: 'To Read', bg: 'var(--bg-hover)', color: 'var(--text-muted)' },
+  reading: { label: 'Reading', bg: '#e0f2fe', color: '#0369a1' },
+  completed: { label: 'Completed', bg: '#ccfbf1', color: '#065f46' },
+  paused: { label: 'Paused', bg: '#fef3c7', color: '#92400e' },
 }
 
 export default function BookDetailPage({ params }: { params: { id: string } }) {
@@ -70,7 +70,6 @@ export default function BookDetailPage({ params }: { params: { id: string } }) {
         <span className="text-sm font-semibold" style={{ color: 'var(--text-muted)' }}>Books</span>
       </div>
 
-      {/* Header */}
       <div className="rounded-2xl p-6 mb-5" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-card)' }}>
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
@@ -88,44 +87,36 @@ export default function BookDetailPage({ params }: { params: { id: string } }) {
         </div>
       </div>
 
-      {/* Progress tracker */}
       {item.total_pages > 0 && (
         <div className="rounded-2xl p-5 mb-4" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-card)' }}>
           <h3 className="text-xs font-black uppercase tracking-wider mb-4" style={{ color: 'var(--text-muted)', fontSize: '10px', letterSpacing: '0.08em' }}>Reading Progress</h3>
-
-          {/* Big progress bar */}
           <div className="h-3 rounded-full overflow-hidden mb-3" style={{ background: 'var(--bg-hover)' }}>
-            <div className="h-full rounded-full transition-all duration-500"
-              style={{ width: `${pct}%`, background: pct === 100 ? 'linear-gradient(90deg,#22c55e,#059669)' : 'linear-gradient(90deg,#3b82f6,#6366f1)' }} />
+            <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: pct === 100 ? 'linear-gradient(90deg,#22c55e,#059669)' : 'linear-gradient(90deg,#3b82f6,#6366f1)' }} />
           </div>
-
           <div className="flex items-center justify-between mb-4">
             <span className="text-2xl font-extrabold tabular-nums" style={{ color: pct === 100 ? '#059669' : 'var(--text-primary)', letterSpacing: '-0.04em' }}>{pct}%</span>
             <span className="text-sm font-bold" style={{ color: 'var(--text-muted)' }}>{item.current_page} / {item.total_pages} pages</span>
           </div>
 
-          {/* Page controls */}
           <div className="flex items-center gap-3">
-            <button onClick={() => adjustPage(-10)} className="p-2 rounded-xl font-bold text-xs transition-all" style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)', border: '1px solid var(--border-subtle)' }}>−10</button>
+            <button onClick={() => adjustPage(-10)} className="p-2 rounded-xl font-bold text-xs transition-all" style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)', border: '1px solid var(--border-subtle)' }}>-10</button>
             <button onClick={() => adjustPage(-1)} className="p-2 rounded-xl transition-all" style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)', border: '1px solid var(--border-subtle)' }}><Minus size={14} /></button>
-            <input
-              type="number" min="0" max={item.total_pages}
-              value={item.current_page}
-              onChange={e => setExactPage(parseInt(e.target.value) || 0)}
-              className="form-input text-center font-extrabold text-lg w-24 tabular-nums"
-              style={{ letterSpacing: '-0.03em' }}
-            />
+            <input type="number" min="0" max={item.total_pages} value={item.current_page} onChange={e => setExactPage(parseInt(e.target.value) || 0)} className="form-input text-center font-extrabold text-lg w-24 tabular-nums" style={{ letterSpacing: '-0.03em' }} />
             <button onClick={() => adjustPage(1)} className="p-2 rounded-xl transition-all" style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)', border: '1px solid var(--border-subtle)' }}><Plus size={14} /></button>
             <button onClick={() => adjustPage(10)} className="p-2 rounded-xl font-bold text-xs transition-all" style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)', border: '1px solid var(--border-subtle)' }}>+10</button>
             {item.total_pages > 0 && (
-              <button onClick={() => setExactPage(item.total_pages)}
-                className="px-3 py-2 rounded-xl text-xs font-bold ml-auto transition-all"
-                style={{ background: '#ccfbf1', color: '#065f46', border: '1px solid #a7f3d0' }}>
-                ✓ Done
+              <button onClick={() => setExactPage(item.total_pages)} className="px-3 py-2 rounded-xl text-xs font-bold ml-auto transition-all inline-flex items-center gap-1" style={{ background: '#ccfbf1', color: '#065f46', border: '1px solid #a7f3d0' }}>
+                <Check size={12} />
+                Done
               </button>
             )}
           </div>
-          {pct === 100 && <p className="text-sm font-bold mt-3 text-center" style={{ color: '#059669' }}>🎉 You finished this book!</p>}
+          {pct === 100 && (
+            <p className="text-sm font-bold mt-3 inline-flex w-full items-center justify-center gap-1.5" style={{ color: '#059669' }}>
+              <PartyPopper size={14} />
+              You finished this book!
+            </p>
+          )}
         </div>
       )}
 

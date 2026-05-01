@@ -94,7 +94,7 @@ export default function IdeaDetailPage({ params }: { params: { id: string } }) {
                 {item.status}
               </span>
               {item.industry && <span className="badge" style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)', border: '1px solid var(--border-subtle)' }}>{item.industry}</span>}
-              {item.is_pinned && <span className="badge" style={{ background: '#fef3c7', color: '#92400e' }}>📌</span>}
+              {item.is_pinned && <span className="badge inline-flex items-center gap-1" style={{ background: '#fef3c7', color: '#92400e' }}><Pin size={11} />Pinned</span>}
             </div>
             <h1 className="text-2xl font-extrabold tracking-tight mb-1" style={{ color: 'var(--text-primary)', letterSpacing: '-0.04em' }}>{item.title}</h1>
             <p className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>{formatDate(item.created_at)}</p>

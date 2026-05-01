@@ -4,13 +4,13 @@ import { createClient } from '@/lib/supabase/client'
 import TagSelector from '@/components/entries/TagSelector'
 import { INDUSTRIES, IMPACT_LEVELS, IMPACT_CONFIG } from '@/lib/utils'
 import toast from 'react-hot-toast'
-import { Loader2, BookOpen } from 'lucide-react'
+import { Loader2, BookOpen, CheckCircle2, PauseCircle, Eye, Library } from 'lucide-react'
 
 const STATUSES = [
-  { value: 'to_read',   label: '📚 To Read',  color: 'var(--text-muted)', bg: 'var(--bg-hover)' },
-  { value: 'reading',   label: '👁️ Reading',   color: '#0369a1', bg: '#e0f2fe' },
-  { value: 'completed', label: '✅ Done',       color: '#065f46', bg: '#ccfbf1' },
-  { value: 'paused',    label: '⏸️ Paused',    color: '#92400e', bg: '#fef3c7' },
+  { value: 'to_read', label: 'To Read', icon: Library, color: 'var(--text-muted)', bg: 'var(--bg-hover)' },
+  { value: 'reading', label: 'Reading', icon: Eye, color: '#0369a1', bg: '#e0f2fe' },
+  { value: 'completed', label: 'Done', icon: CheckCircle2, color: '#065f46', bg: '#ccfbf1' },
+  { value: 'paused', label: 'Paused', icon: PauseCircle, color: '#92400e', bg: '#fef3c7' },
 ]
 
 export default function BookForm({ onSuccess, onCancel, initial }: {
@@ -72,7 +72,6 @@ export default function BookForm({ onSuccess, onCancel, initial }: {
       <div><label className="form-label">Title *</label><input value={title} onChange={e => setTitle(e.target.value)} className="form-input" placeholder="Book title" required /></div>
       <div><label className="form-label">Author</label><input value={author} onChange={e => setAuthor(e.target.value)} className="form-input" placeholder="Author name" /></div>
 
-      {/* Status buttons */}
       <div>
         <label className="form-label">Status</label>
         <div className="grid grid-cols-2 gap-2">
@@ -85,13 +84,15 @@ export default function BookForm({ onSuccess, onCancel, initial }: {
                 borderColor: status === s.value ? s.color + '60' : 'var(--border-default)',
                 boxShadow: status === s.value ? `0 0 0 2px ${s.color}25` : 'none',
               }}>
-              {s.label}
+              <span className="inline-flex items-center gap-1.5">
+                <s.icon size={13} />
+                {s.label}
+              </span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Page progress */}
       <div>
         <label className="form-label">Reading Progress</label>
         <div className="grid grid-cols-2 gap-3 mb-2">
@@ -104,7 +105,6 @@ export default function BookForm({ onSuccess, onCancel, initial }: {
             <input value={totalPages} onChange={e => setTotalPages(e.target.value)} className="form-input" type="number" min="1" placeholder="e.g. 320" />
           </div>
         </div>
-        {/* Progress bar */}
         {totalPages && parseInt(totalPages) > 0 && (
           <div className="rounded-2xl p-3" style={{ background: 'var(--bg-hover)', border: '1px solid var(--border-subtle)' }}>
             <div className="flex items-center justify-between mb-2">
@@ -117,7 +117,7 @@ export default function BookForm({ onSuccess, onCancel, initial }: {
             </div>
             <p className="text-xs font-semibold mt-1.5" style={{ color: 'var(--text-muted)' }}>
               {currentPage} of {totalPages} pages
-              {pct === 100 && ' · 🎉 Completed!'}
+              {pct === 100 && ' | Completed'}
             </p>
           </div>
         )}
@@ -162,3 +162,4 @@ export default function BookForm({ onSuccess, onCancel, initial }: {
     </form>
   )
 }
+

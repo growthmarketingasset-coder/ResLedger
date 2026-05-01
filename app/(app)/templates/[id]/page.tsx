@@ -84,7 +84,7 @@ export default function TemplateDetailPage({ params }: { params: { id: string } 
               )}
               {item.is_pinned && (
                 <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold"
-                  style={{ background: '#fef3c7', color: '#92400e' }}>📌</span>
+                  style={{ background: '#fef3c7', color: '#92400e' }}><Pin size={11} /> Pinned</span>
               )}
             </div>
             <h1 className="text-2xl font-extrabold tracking-tight mb-1"

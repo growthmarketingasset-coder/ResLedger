@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard, BookOpen, Link2, FileText, Wrench,
   Lightbulb, Archive, Search, LogOut, Tag, Sparkles, Brain,
-  PlayCircle, BookMarked, Settings, ChevronRight, Library, Menu, X,
+  PlayCircle, BookMarked, Settings, ChevronRight, Library, Menu, X, PanelLeftClose, PanelLeftOpen,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
@@ -38,6 +38,7 @@ export default function Sidebar({ user }: { user: User }) {
   const [signingOut, setSigningOut] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [displayName, setDisplayName] = useState<string>('')
+  const [desktopCollapsed, setDesktopCollapsed] = useState(false)
 
   const handleSignOut = async () => {
     setSigningOut(true)
@@ -57,6 +58,13 @@ export default function Sidebar({ user }: { user: User }) {
     return () => { active = false }
   }, [supabase, user.id])
 
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('resledge_sidebar_collapsed')
+      setDesktopCollapsed(raw === '1')
+    } catch {}
+  }, [])
+
   const fallbackName = user.email?.split('@')[0] || 'User'
   const effectiveName = displayName || fallbackName
   const initials = effectiveName.slice(0, 2).toUpperCase() || 'RL'
@@ -68,7 +76,7 @@ export default function Sidebar({ user }: { user: User }) {
 
   const NavContent = ({ mobile = false }: { mobile?: boolean }) => (
     <>
-      <div className={cn('px-5 pt-6 pb-4', mobile && 'pt-4')}>
+      <div className={cn('px-5 pt-6 pb-4', mobile && 'pt-4', !mobile && desktopCollapsed && 'px-3')}>
         <div className="flex items-center gap-3">
           <div
             className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 noise relative overflow-hidden"
@@ -76,10 +84,12 @@ export default function Sidebar({ user }: { user: User }) {
           >
             <img src="/RL.png" alt="ResLedge" className="w-full h-full object-cover" />
           </div>
+          {!desktopCollapsed && (
           <div>
             <p className="font-extrabold text-sm" style={{ color: 'var(--text-primary)', letterSpacing: '-0.04em' }}>ResLedge</p>
             <p className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>Knowledge OS</p>
           </div>
+          )}
         </div>
       </div>
 
@@ -89,6 +99,7 @@ export default function Sidebar({ user }: { user: User }) {
           onClick={closeMobile}
           className={cn(
             'flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 border',
+            !mobile && desktopCollapsed && 'justify-center px-2',
             isActive('/search') ? 'sidebar-item active' : ''
           )}
           style={!isActive('/search') ? {
@@ -98,8 +109,8 @@ export default function Sidebar({ user }: { user: User }) {
           } : {}}
         >
           <Search size={14} style={{ color: isActive('/search') ? 'var(--accent-500)' : 'var(--text-muted)' }} />
-          <span className="flex-1">Search</span>
-          {!mobile && (
+          {(!desktopCollapsed || mobile) && <span className="flex-1">Search</span>}
+          {!mobile && !desktopCollapsed && (
             <kbd
               className="text-xs px-1.5 py-0.5 rounded-md font-mono"
               style={{
@@ -116,44 +127,44 @@ export default function Sidebar({ user }: { user: User }) {
       </div>
 
       <div className="px-3 flex-1 overflow-y-auto pb-4">
-        <p className="px-3 mb-2 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: 'var(--text-faint)' }}>
+        {!desktopCollapsed && <p className="px-3 mb-2 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: 'var(--text-faint)' }}>
           Workspace
-        </p>
+        </p>}
         <nav className="space-y-1.5 mb-5">
           {NAV_ITEMS.map(({ href, label, icon: Icon }) => (
-            <Link key={href} href={href} onClick={closeMobile} className={cn('sidebar-item', isActive(href) ? 'active' : '')}>
+            <Link key={href} href={href} onClick={closeMobile} title={desktopCollapsed ? label : undefined} className={cn('sidebar-item', desktopCollapsed && !mobile && 'justify-center px-2', isActive(href) ? 'active' : '')}>
               <Icon size={15} strokeWidth={isActive(href) ? 2.25 : 2} />
-              <span className="flex-1">{label}</span>
-              {isActive(href) && <ChevronRight size={12} style={{ color: 'var(--accent-500)' }} />}
+              {(!desktopCollapsed || mobile) && <span className="flex-1">{label}</span>}
+              {(!desktopCollapsed || mobile) && isActive(href) && <ChevronRight size={12} style={{ color: 'var(--accent-500)' }} />}
             </Link>
           ))}
         </nav>
 
-        <p className="px-3 mb-2 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: 'var(--text-faint)' }}>
+        {!desktopCollapsed && <p className="px-3 mb-2 text-[10px] font-semibold uppercase tracking-[0.16em]" style={{ color: 'var(--text-faint)' }}>
           Manage
-        </p>
+        </p>}
         <nav className="space-y-1.5">
           {SECONDARY_ITEMS.map(({ href, label, icon: Icon }) => (
-            <Link key={href} href={href} onClick={closeMobile} className={cn('sidebar-item', isActive(href) ? 'active' : '')}>
+            <Link key={href} href={href} onClick={closeMobile} title={desktopCollapsed ? label : undefined} className={cn('sidebar-item', desktopCollapsed && !mobile && 'justify-center px-2', isActive(href) ? 'active' : '')}>
               <Icon size={15} strokeWidth={isActive(href) ? 2.25 : 2} />
-              <span>{label}</span>
+              {(!desktopCollapsed || mobile) && <span>{label}</span>}
             </Link>
           ))}
         </nav>
       </div>
 
       <div className="p-3">
-        <div className="flex items-center gap-2.5 p-3 rounded-2xl" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
+        <div className={cn('flex items-center rounded-2xl', desktopCollapsed && !mobile ? 'justify-center p-2' : 'gap-2.5 p-3')} style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
           <div
             className="w-8 h-8 rounded-xl flex items-center justify-center text-white text-xs font-black shrink-0 noise relative overflow-hidden"
             style={{ background: 'var(--grad-accent)' }}
           >
             <span className="relative z-10">{initials}</span>
           </div>
-          <div className="flex-1 min-w-0">
+          {(!desktopCollapsed || mobile) && <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold truncate capitalize" style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>{effectiveName}</p>
             <p className="text-xs truncate" style={{ color: 'var(--text-muted)', fontSize: '10px' }}>{user.email}</p>
-          </div>
+          </div>}
           <button
             onClick={handleSignOut}
             disabled={signingOut}
@@ -212,13 +223,29 @@ export default function Sidebar({ user }: { user: User }) {
       )}
 
       <aside
-        className="hidden lg:flex w-60 h-full flex-col shrink-0 relative"
+        className={cn('hidden lg:flex h-full flex-col shrink-0 relative transition-[width] duration-200', desktopCollapsed ? 'w-[78px]' : 'w-60')}
         style={{
           background: 'var(--bg-sidebar)',
           borderRight: '1px solid var(--border-subtle)',
           boxShadow: 'var(--shadow-sidebar)',
         }}
       >
+        <div className="absolute right-2 top-2 z-20">
+          <button
+            type="button"
+            onClick={() => {
+              const next = !desktopCollapsed
+              setDesktopCollapsed(next)
+              try { localStorage.setItem('resledge_sidebar_collapsed', next ? '1' : '0') } catch {}
+            }}
+            className="p-2 rounded-xl border transition-all"
+            style={{ background: 'var(--bg-card)', borderColor: 'var(--border-subtle)', color: 'var(--text-muted)' }}
+            title={desktopCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            aria-label={desktopCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {desktopCollapsed ? <PanelLeftOpen size={14} /> : <PanelLeftClose size={14} />}
+          </button>
+        </div>
         <NavContent />
       </aside>
     </>

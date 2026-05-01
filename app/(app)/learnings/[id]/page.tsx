@@ -103,7 +103,7 @@ export default function LearningDetailPage({ params }: { params: { id: string } 
                 style={{ background: '#dbeafe', color: '#1e40af' }}>
                 <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#3b82f6' }} /> Learning
               </span>
-              {learning.is_pinned && <span className="badge" style={{ background: '#fef3c7', color: '#92400e' }}>📌</span>}
+              {learning.is_pinned && <span className="badge inline-flex items-center gap-1" style={{ background: '#fef3c7', color: '#92400e' }}><Pin size={11} />Pinned</span>}
               {learning.industry && <span className="badge" style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)' }}>{learning.industry}</span>}
             </div>
             <h1 className="text-2xl font-extrabold tracking-tight mb-1" style={{ color: 'var(--text-primary)', letterSpacing: '-0.04em' }}>
