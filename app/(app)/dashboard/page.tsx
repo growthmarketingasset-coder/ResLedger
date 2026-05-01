@@ -40,6 +40,7 @@ export default async function DashboardPage() {
   const supabase = createServerClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return null
+  const { data: profile } = await supabase.from('profiles').select('full_name').eq('id', user.id).single()
 
   const [
     { count: learningsCount }, { count: resourcesCount }, { count: templatesCount },
@@ -144,7 +145,7 @@ export default async function DashboardPage() {
   ])
   const weeklyStats={newEntries:(wL??0)+(wR??0)+(wId??0),newLearnings:wL??0,newResources:wR??0,newIdeas:wId??0,reviewed:wRev??0,highImpact:wHigh??0,streak:days7.filter(d=>d.learnings+d.resources>0).length}
 
-  const emailName=user.email?.split('@')[0]??'there'
+  const emailName=(profile?.full_name?.trim() || user.email?.split('@')[0])??'there'
   const P={background:'var(--bg-card)',border:'1px solid var(--border-subtle)',boxShadow:'var(--shadow-card)'}
 
   return (
@@ -189,18 +190,18 @@ export default async function DashboardPage() {
       </div>
 
       {/* Main dashboard grid */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-4 items-stretch">
-        <div className="interactive-card relative rounded-2xl overflow-hidden h-full" style={P}>
+      <div className="grid grid-cols-1 gap-4 mb-4 items-stretch xl:grid-cols-3 xl:auto-rows-fr">
+        <div className="interactive-card relative rounded-2xl overflow-hidden h-full xl:min-h-[360px]" style={P}>
           <SectionTitle icon={BarChart3}>Activity (7 days)</SectionTitle>
           <div className="p-4 sm:p-5 h-full"><ActivityBarChart data={days7}/></div>
         </div>
 
-        <div className="interactive-card relative rounded-2xl overflow-hidden h-full" style={P}>
+        <div className="interactive-card relative rounded-2xl overflow-hidden h-full xl:min-h-[360px]" style={P}>
           <SectionTitle icon={Target}>Impact Distribution</SectionTitle>
-          <div className="p-4 sm:p-5 sm:h-full sm:flex sm:items-center sm:justify-center"><ImpactDonut slices={impactSlices} total={impactTotal}/></div>
+          <div className="p-4 sm:p-5 h-full flex items-center justify-center"><ImpactDonut slices={impactSlices} total={impactTotal}/></div>
         </div>
 
-        <div className="h-full">
+        <div className="h-full xl:min-h-[360px]">
           <WeeklyReport stats={weeklyStats} userName={emailName}/>
         </div>
 

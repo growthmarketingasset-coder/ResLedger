@@ -41,13 +41,13 @@ export default function CaseStudyDetailPage({ params }: { params: { id: string }
   const handleArchive = async () => { await supabase.from('case_studies').update({ is_archived: true }).eq('id', params.id); toast.success('Archived'); router.push('/case-studies') }
   const handleDelete = async () => { await supabase.from('case_studies').delete().eq('id', params.id); toast.success('Deleted'); router.push('/case-studies') }
 
-  if (loading) return <div className="p-8 max-w-3xl mx-auto"><div className="animate-pulse space-y-4"><div className="h-32 rounded-2xl" style={{ background: 'var(--bg-hover)' }} /></div></div>
+  if (loading) return <div className="detail-page"><div className="animate-pulse space-y-4"><div className="h-32 rounded-2xl" style={{ background: 'var(--bg-hover)' }} /></div></div>
   if (!item) return null
 
   const ic = IMPACT_CONFIG[item.impact_level]
 
   return (
-    <div className="p-8 max-w-3xl mx-auto animate-fade-in">
+    <div className="detail-page animate-fade-in">
       <div className="flex items-center gap-2.5 mb-8">
         <Link href="/case-studies" className="inline-flex items-center p-2 rounded-xl transition-all" style={{ color: 'var(--text-muted)', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}><ArrowLeft size={14} /></Link>
         <span className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>Case Studies</span>
@@ -119,3 +119,4 @@ export default function CaseStudyDetailPage({ params }: { params: { id: string }
     </div>
   )
 }
+

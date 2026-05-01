@@ -10,7 +10,7 @@ import {
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 import type { User } from '@supabase/supabase-js'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const NAV_ITEMS = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -37,6 +37,7 @@ export default function Sidebar({ user }: { user: User }) {
   const supabase = createClient()
   const [signingOut, setSigningOut] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [displayName, setDisplayName] = useState<string>('')
 
   const handleSignOut = async () => {
     setSigningOut(true)
@@ -45,8 +46,20 @@ export default function Sidebar({ user }: { user: User }) {
     router.refresh()
   }
 
-  const initials = user.email?.slice(0, 2).toUpperCase() || 'RL'
-  const emailName = user.email?.split('@')[0] || 'User'
+  useEffect(() => {
+    let active = true
+    const loadProfileName = async () => {
+      const { data } = await supabase.from('profiles').select('full_name').eq('id', user.id).single()
+      if (!active) return
+      setDisplayName(data?.full_name?.trim() || '')
+    }
+    loadProfileName()
+    return () => { active = false }
+  }, [supabase, user.id])
+
+  const fallbackName = user.email?.split('@')[0] || 'User'
+  const effectiveName = displayName || fallbackName
+  const initials = effectiveName.slice(0, 2).toUpperCase() || 'RL'
 
   const isActive = (href: string) =>
     href === '/dashboard' ? pathname === href : pathname === href || pathname.startsWith(href + '/')
@@ -138,7 +151,7 @@ export default function Sidebar({ user }: { user: User }) {
             <span className="relative z-10">{initials}</span>
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold truncate capitalize" style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>{emailName}</p>
+            <p className="text-xs font-semibold truncate capitalize" style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>{effectiveName}</p>
             <p className="text-xs truncate" style={{ color: 'var(--text-muted)', fontSize: '10px' }}>{user.email}</p>
           </div>
           <button

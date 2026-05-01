@@ -57,14 +57,14 @@ export default function BookDetailPage({ params }: { params: { id: string } }) {
   const handleArchive = async () => { await supabase.from('books').update({ is_archived: true }).eq('id', params.id); toast.success('Archived'); router.push('/books') }
   const handleDelete = async () => { await supabase.from('books').delete().eq('id', params.id); toast.success('Deleted'); router.push('/books') }
 
-  if (loading) return <div className="p-8 max-w-2xl mx-auto"><div className="animate-pulse space-y-4"><div className="h-32 rounded-2xl skeleton-pulse" style={{ background: 'var(--bg-hover)' }} /></div></div>
+  if (loading) return <div className="detail-page"><div className="animate-pulse space-y-4"><div className="h-32 rounded-2xl skeleton-pulse" style={{ background: 'var(--bg-hover)' }} /></div></div>
   if (!item) return null
 
   const pct = item.total_pages > 0 ? Math.min(100, Math.round((item.current_page / item.total_pages) * 100)) : 0
   const sc = STATUS_CFG[item.status] ?? STATUS_CFG.to_read
 
   return (
-    <div className="p-8 max-w-2xl mx-auto animate-fade-in">
+    <div className="detail-page animate-fade-in">
       <div className="flex items-center gap-2.5 mb-8">
         <Link href="/books" className="inline-flex items-center p-2 rounded-xl transition-all" style={{ color: 'var(--text-muted)', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}><ArrowLeft size={14} /></Link>
         <span className="text-sm font-semibold" style={{ color: 'var(--text-muted)' }}>Books</span>
@@ -151,3 +151,4 @@ export default function BookDetailPage({ params }: { params: { id: string } }) {
     </div>
   )
 }
+

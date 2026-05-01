@@ -99,7 +99,7 @@ export default function AIStrategyDetailPage({ params }: { params: { id: string 
   }
 
   if (loading) return (
-    <div className="p-8 max-w-3xl mx-auto">
+    <div className="detail-page">
       <div className="animate-pulse space-y-4">
         <div className="h-8 rounded-xl" style={{ background: 'var(--bg-hover)' }} />
         <div className="h-40 rounded-2xl" style={{ background: 'var(--bg-hover)' }} />
@@ -113,7 +113,7 @@ export default function AIStrategyDetailPage({ params }: { params: { id: string 
   const ic = IMPACT_CONFIG[item.impact_level]
 
   return (
-    <div className="p-8 max-w-3xl mx-auto animate-fade-in">
+    <div className="detail-page animate-fade-in">
       {/* Breadcrumb */}
       <div className="flex items-center gap-2.5 mb-8">
         <Link href="/ai-strategy"
@@ -350,3 +350,4 @@ export default function AIStrategyDetailPage({ params }: { params: { id: string 
     </div>
   )
 }
+

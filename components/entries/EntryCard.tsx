@@ -70,7 +70,7 @@ export default function EntryCard({
       >
         <div className="h-0.5 w-full" style={{ background: cfg.dot, opacity: hovered ? 1 : 0.4, transition: 'opacity 0.2s' }} />
 
-        <div className="p-4 sm:p-5">
+        <div className="p-4 sm:p-5 h-[240px] sm:h-[252px] flex flex-col">
           <div className="flex items-start justify-between gap-2 mb-3">
             <div className="flex items-center gap-1.5 flex-1 min-w-0 flex-wrap">
               {dragHandle}
@@ -133,14 +133,15 @@ export default function EntryCard({
           </h3>
 
           {description && (
-            <p className="text-xs leading-relaxed mb-3 line-clamp-2" style={{ color: 'var(--text-muted)' }}>
+            <p className="text-xs leading-relaxed mb-3 line-clamp-3" style={{ color: 'var(--text-muted)' }}>
               {description}
             </p>
           )}
-          {extra && <div className="mb-3">{extra}</div>}
+          {extra && <div className="mb-3 line-clamp-2">{extra}</div>}
 
-          {tags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mb-3">
+          <div className="mt-auto">
+            {tags.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mb-3 max-h-[44px] overflow-hidden">
               {tags.slice(0, 3).map(tag => (
                 <span
                   key={tag.id}
@@ -151,11 +152,12 @@ export default function EntryCard({
                 </span>
               ))}
               {tags.length > 3 && <span className="text-xs font-semibold" style={{ color: 'var(--text-faint)' }}>+{tags.length - 3}</span>}
-            </div>
-          )}
+              </div>
+            )}
 
-          <div className="pt-3 flex items-center" style={{ borderTop: '1px solid var(--border-subtle)' }}>
-            <span className="text-xs font-semibold" style={{ color: 'var(--text-faint)' }}>{formatRelative(createdAt)}</span>
+            <div className="pt-3 flex items-center" style={{ borderTop: '1px solid var(--border-subtle)' }}>
+              <span className="text-xs font-semibold" style={{ color: 'var(--text-faint)' }}>{formatRelative(createdAt)}</span>
+            </div>
           </div>
         </div>
 

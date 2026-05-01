@@ -342,6 +342,20 @@ body::before {
   .interactive-card:hover::before {
     opacity: 1;
   }
+
+  .detail-page {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+
+  .detail-panel {
+    border-radius: 16px;
+    padding: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-card);
+  }
 }
 
 @media (max-width: 639px) {
@@ -360,6 +374,29 @@ body::before {
   .form-textarea {
     min-height: 132px;
   }
+}
+
+@media (min-width: 640px) {
+  .detail-page {
+    padding: 2rem;
+  }
+
+  .detail-panel {
+    padding: 1.25rem;
+  }
+}
+
+body.compact-view .card {
+  padding: 0.85rem;
+}
+
+body.compact-view .detail-panel {
+  padding: 0.9rem;
+}
+
+body.compact-view .sidebar-item {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }

@@ -50,7 +50,7 @@ export default function ToolDetailPage({ params }: { params: { id: string } }) {
   }
 
   if (loading) return (
-    <div className="p-8 max-w-3xl mx-auto">
+    <div className="detail-page">
       <div className="animate-pulse space-y-4">
         <div className="h-20 rounded-2xl skeleton-pulse" style={{ background: 'var(--bg-hover)' }} />
         <div className="h-40 rounded-2xl skeleton-pulse" style={{ background: 'var(--bg-hover)' }} />
@@ -63,8 +63,8 @@ export default function ToolDetailPage({ params }: { params: { id: string } }) {
   const ic = IMPACT_CONFIG[item.impact_level]
 
   return (
-    <div className="p-8 max-w-3xl mx-auto animate-fade-in">
-      <div className="flex items-center gap-2.5 mb-8">
+    <div className="detail-page animate-fade-in">
+      <div className="flex items-center gap-2.5 mb-6 sm:mb-8">
         <Link href="/tools" className="inline-flex items-center p-2 rounded-xl transition-all duration-150"
           style={{ color: 'var(--text-muted)', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
           <ArrowLeft size={14} />
@@ -73,21 +73,21 @@ export default function ToolDetailPage({ params }: { params: { id: string } }) {
       </div>
 
       {/* Tool header with large favicon */}
-      <div className="rounded-2xl p-6 mb-5" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
-        <div className="flex items-start gap-5">
+      <div className="detail-panel mb-5">
+        <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-5">
           <FaviconImg url={item.url} size={56} />
           <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div>
                 <div className="flex items-center gap-2 mb-2 flex-wrap">
                   <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold capitalize" style={{ background: ps.bg, color: ps.color }}>{item.pricing}</span>
                   {item.category && <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold" style={{ background: 'var(--bg-base)', color: 'var(--text-secondary)', border: '1px solid var(--border-subtle)' }}>{item.category}</span>}
                   {item.is_pinned && <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold" style={{ background: '#fffbeb', color: '#b45309' }}>Pinned</span>}
                 </div>
-                <h1 className="text-2xl font-bold tracking-tight" style={{ color: 'var(--text-primary)', letterSpacing: '-0.025em' }}>{item.title}</h1>
+                <h1 className="text-[2rem] sm:text-2xl font-bold leading-[1.08] tracking-tight" style={{ color: 'var(--text-primary)', letterSpacing: '-0.03em' }}>{item.title}</h1>
                 <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>{formatDate(item.created_at)}</p>
               </div>
-              <div className="flex items-center gap-1.5 shrink-0">
+              <div className="flex flex-wrap items-center gap-1.5 shrink-0">
                 <button onClick={() => setEditOpen(true)} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-150" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', color: 'var(--text-secondary)' }}><Edit2 size={13} /> Edit</button>
                 <button onClick={handlePin} className="p-2 rounded-xl transition-all duration-150" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', color: 'var(--text-muted)' }}><Pin size={13} /></button>
                 <button onClick={handleArchive} className="p-2 rounded-xl transition-all duration-150" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', color: 'var(--text-muted)' }}><Archive size={13} /></button>
@@ -96,9 +96,10 @@ export default function ToolDetailPage({ params }: { params: { id: string } }) {
             </div>
             {item.url && (
               <a href={item.url} target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 mt-3 text-xs font-medium transition-colors hover:text-green-600"
+                className="flex w-full min-w-0 items-start gap-2 mt-3 text-sm font-medium transition-colors"
                 style={{ color: '#3b82f6' }}>
-                <ExternalLink size={12} />{item.url}
+                <ExternalLink size={13} className="mt-0.5 shrink-0" />
+                <span className="min-w-0 flex-1 break-all leading-6">{item.url}</span>
               </a>
             )}
           </div>
@@ -106,20 +107,20 @@ export default function ToolDetailPage({ params }: { params: { id: string } }) {
       </div>
 
       {item.description && (
-        <div className="rounded-2xl p-5 mb-5" style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: '0 1px 3px rgba(0,0,0,0.04)' }}>
+        <div className="detail-panel mb-5">
           <p className="text-sm whitespace-pre-wrap" style={{ color: 'var(--text-secondary)' }}>{item.description}</p>
         </div>
       )}
 
       {item.action_plan && (
-        <div className="rounded-2xl p-5 mb-5" style={{ background: '#f0fdf4', border: '1px solid #bbf7d0' }}>
-          <h3 className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: '#15803d', fontSize: '10px', letterSpacing: '0.08em' }}>What to DO with this</h3>
-          <p className="text-sm whitespace-pre-wrap" style={{ color: '#15803d' }}>{item.action_plan}</p>
+        <div className="detail-panel mb-5" style={{ background: 'rgba(124,108,242,0.08)', borderColor: 'rgba(124,108,242,0.22)' }}>
+          <h3 className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--accent-400)', fontSize: '10px', letterSpacing: '0.08em' }}>What to do with this</h3>
+          <p className="text-sm whitespace-pre-wrap" style={{ color: 'var(--text-secondary)' }}>{item.action_plan}</p>
         </div>
       )}
 
       {/* Meta strip */}
-      <div className="flex flex-wrap gap-3 mb-5">
+      <div className="flex flex-wrap gap-2.5 mb-5">
         {ic && (
           <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl" style={{ background: ic.bg, border: `1px solid ${ic.border}` }}>
             <Zap size={13} style={{ color: ic.color }} />
@@ -157,3 +158,4 @@ export default function ToolDetailPage({ params }: { params: { id: string } }) {
     </div>
   )
 }
+

@@ -71,7 +71,7 @@ export default function ResourceDetailPage({ params }: { params: { id: string } 
   }
 
   if (loading) return (
-    <div className="max-w-3xl mx-auto animate-fade-in p-4 sm:p-8">
+    <div className="detail-page animate-fade-in">
       <div className="animate-pulse space-y-4">
         <div className="h-8 rounded-xl skeleton-pulse" style={{background:"var(--bg-hover)",width:"50%"}} />
         <div className="h-40 rounded-2xl skeleton-pulse" style={{background:"var(--bg-hover)"}} />
@@ -82,7 +82,7 @@ export default function ResourceDetailPage({ params }: { params: { id: string } 
   if (!resource) return null
 
   return (
-    <div className="max-w-3xl mx-auto animate-fade-in p-4 sm:p-8">
+    <div className="detail-page animate-fade-in">
       <div className="mb-6 flex items-center gap-2.5 sm:mb-8">
         <Link href="/resources" className="inline-flex items-center p-2 rounded-xl transition-all duration-150" style={{ color: "var(--text-muted)", background: 'var(--bg-card)', border: "1px solid var(--border-subtle)" }}><ArrowLeft size={14} /></Link>
         <span className="text-sm" style={{ color: "var(--text-muted)" }}>Resources</span>
@@ -164,3 +164,4 @@ export default function ResourceDetailPage({ params }: { params: { id: string } 
     </div>
   )
 }
+

@@ -70,7 +70,7 @@ export default function LearningDetailPage({ params }: { params: { id: string } 
   }
 
   if (loading) return (
-    <div className="p-8 max-w-3xl mx-auto">
+    <div className="detail-page">
       <div className="animate-pulse space-y-4">
         <div className="h-8 rounded-xl skeleton-pulse" style={{ background: 'var(--bg-hover)', width: '50%' }} />
         <div className="h-4 rounded-xl skeleton-pulse" style={{ background: 'var(--bg-hover)', width: '75%' }} />
@@ -83,7 +83,7 @@ export default function LearningDetailPage({ params }: { params: { id: string } 
   const ic = IMPACT_CONFIG[learning.impact_level]
 
   return (
-    <div className="p-8 max-w-3xl mx-auto animate-fade-in">
+    <div className="detail-page animate-fade-in">
       {/* Breadcrumb */}
       <div className="flex items-center gap-2.5 mb-8">
         <Link href="/learnings"
@@ -217,3 +217,4 @@ export default function LearningDetailPage({ params }: { params: { id: string } 
     </div>
   )
 }
+

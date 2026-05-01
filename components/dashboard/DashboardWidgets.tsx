@@ -142,13 +142,13 @@ export function ProgressBar({ value, max, color }: { value: number; max: number;
 
 interface ImpactSlice { level: string; count: number; color: string }
 export function ImpactDonut({ slices, total }: { slices: ImpactSlice[]; total: number }) {
-  const size = 96; const cx = 48; const cy = 48; const r = 34; const stroke = 11
+  const size = 110; const cx = 55; const cy = 55; const r = 38; const stroke = 12
   const circumference = 2 * Math.PI * r
   let cumPct = 0
 
   return (
-    <div className="grid w-full grid-cols-[78px_minmax(0,1fr)] items-center gap-3 sm:flex sm:items-center sm:justify-center sm:gap-5">
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="h-[78px] w-[78px] shrink-0 sm:h-[96px] sm:w-[96px]">
+    <div className="flex w-full flex-col items-center gap-4 py-2 sm:grid sm:grid-cols-[108px_minmax(0,1fr)] sm:items-center sm:gap-5 sm:py-0">
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="h-[96px] w-[96px] shrink-0 sm:h-[108px] sm:w-[108px]">
         <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--border-subtle)" strokeWidth={stroke} />
         {slices.filter(s => s.count > 0).map((slice) => {
           const pct = total === 0 ? 0 : slice.count / total
@@ -171,18 +171,18 @@ export function ImpactDonut({ slices, total }: { slices: ImpactSlice[]; total: n
             />
           )
         })}
-        <text x={cx} y={cy + 1} textAnchor="middle" dominantBaseline="middle" fontSize="17" fontWeight="800" fill="var(--text-primary)" fontFamily="inherit">
+        <text x={cx} y={cy + 1} textAnchor="middle" dominantBaseline="middle" fontSize="24" fontWeight="800" fill="var(--text-primary)" fontFamily="inherit">
           {total}
         </text>
       </svg>
-      <div className="w-full space-y-1.5 sm:max-w-[250px]">
+      <div className="w-full max-w-[280px] space-y-1.5">
         {slices.map(s => (
           <div key={s.level} className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: s.color }} />
-              <span className="text-[15px] font-medium leading-5 sm:text-sm" style={{ color: 'var(--text-secondary)' }}>{IMPACT_CONFIG[s.level]?.label ?? s.level}</span>
+              <div className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: s.color }} />
+              <span className="text-base font-medium leading-5 sm:text-[18px]" style={{ color: 'var(--text-secondary)' }}>{IMPACT_CONFIG[s.level]?.label ?? s.level}</span>
             </div>
-            <span className="text-[17px] sm:text-base font-semibold tabular-nums" style={{ color: 'var(--text-primary)' }}>{s.count}</span>
+            <span className="text-xl font-semibold tabular-nums sm:text-[22px]" style={{ color: 'var(--text-primary)' }}>{s.count}</span>
           </div>
         ))}
       </div>

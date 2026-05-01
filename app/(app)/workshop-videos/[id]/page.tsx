@@ -37,13 +37,13 @@ export default function WorkshopVideoDetailPage({ params }: { params: { id: stri
     fetchItem(); toast.success(newVal ? 'Marked as watched!' : 'Marked as unwatched')
   }
 
-  if (loading) return <div className="p-8 max-w-3xl mx-auto"><div className="animate-pulse space-y-4"><div className="h-32 rounded-2xl" style={{ background: 'var(--bg-hover)' }} /></div></div>
+  if (loading) return <div className="detail-page"><div className="animate-pulse space-y-4"><div className="h-32 rounded-2xl" style={{ background: 'var(--bg-hover)' }} /></div></div>
   if (!item) return null
 
   const ic = IMPACT_CONFIG[item.impact_level]
 
   return (
-    <div className="p-8 max-w-3xl mx-auto animate-fade-in">
+    <div className="detail-page animate-fade-in">
       <div className="flex items-center gap-2.5 mb-8">
         <Link href="/workshop-videos" className="inline-flex items-center p-2 rounded-xl transition-all" style={{ color: 'var(--text-muted)', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}><ArrowLeft size={14} /></Link>
         <span className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>Workshop Videos</span>
@@ -99,3 +99,4 @@ export default function WorkshopVideoDetailPage({ params }: { params: { id: stri
     </div>
   )
 }
+

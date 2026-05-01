@@ -63,7 +63,7 @@ export default function IdeaDetailPage({ params }: { params: { id: string } }) {
   }
 
   if (loading) return (
-    <div className="p-8 max-w-3xl mx-auto">
+    <div className="detail-page">
       <div className="space-y-4">
         <div className="h-8 rounded-xl skeleton-pulse" style={{ background: 'var(--bg-hover)', width: '50%' }} />
         <div className="h-40 rounded-2xl skeleton-pulse" style={{ background: 'var(--bg-hover)' }} />
@@ -76,7 +76,7 @@ export default function IdeaDetailPage({ params }: { params: { id: string } }) {
   const ic = IMPACT_CONFIG[item.impact_level]
 
   return (
-    <div className="p-8 max-w-3xl mx-auto animate-fade-in">
+    <div className="detail-page animate-fade-in">
       <div className="flex items-center gap-2.5 mb-8">
         <Link href="/ideas" className="inline-flex items-center p-2 rounded-xl transition-all"
           style={{ color: 'var(--text-muted)', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)' }}>
@@ -169,3 +169,4 @@ export default function IdeaDetailPage({ params }: { params: { id: string } }) {
     </div>
   )
 }
+
