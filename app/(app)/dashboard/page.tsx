@@ -10,6 +10,7 @@ import {
   Zap, AlertTriangle, BarChart3, Target, PlayCircle, BookMarked,
 } from 'lucide-react'
 import DashboardGreeting from '@/components/dashboard/DashboardGreeting'
+import SectionCardHeader from '@/components/ui/SectionCardHeader'
 import Link from 'next/link'
 import { formatRelative, ENTRY_TYPE_LABELS, IMPACT_CONFIG } from '@/lib/utils'
 
@@ -20,20 +21,6 @@ const TYPE_CONFIG: Record<string, { dot: string; pill: string; pillText: string 
   tool:        { dot: '#aaa1fb', pill: 'rgba(124,108,242,0.08)', pillText: '#d7d2ff' },
   idea:        { dot: '#9488f6', pill: 'rgba(124,108,242,0.08)', pillText: '#c7c0ff' },
   ai_strategy: { dot: '#f3f1ff', pill: 'rgba(124,108,242,0.16)', pillText: '#f3f1ff' },
-}
-
-function SectionTitle({ children, icon: Icon, extra }: { children: React.ReactNode; icon: any; extra?: React.ReactNode }) {
-  return (
-    <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
-      <div className="flex items-center gap-2.5">
-        <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'var(--accent-soft)' }}>
-          <Icon size={14} style={{ color: 'var(--accent-500)' }} />
-        </div>
-        <h2 className="text-base font-semibold" style={{ color: 'var(--text-primary)' }}>{children}</h2>
-      </div>
-      {extra}
-    </div>
-  )
 }
 
 export default async function DashboardPage() {
@@ -190,37 +177,37 @@ export default async function DashboardPage() {
       </div>
 
       {/* Main dashboard grid */}
-      <div className="grid grid-cols-1 gap-4 mb-4 items-stretch xl:grid-cols-3 xl:auto-rows-fr">
-        <div className="interactive-card relative rounded-2xl overflow-hidden h-full xl:min-h-[360px]" style={P}>
-          <SectionTitle icon={BarChart3}>Activity (7 days)</SectionTitle>
+      <div className="mb-4 grid grid-cols-1 gap-4 items-stretch xl:grid-cols-12 xl:auto-rows-fr">
+        <div className="interactive-card relative col-span-12 overflow-hidden rounded-2xl h-full xl:col-span-4 xl:min-h-[360px]" style={P}>
+          <SectionCardHeader icon={BarChart3} title="Activity (7 days)" />
           <div className="p-4 sm:p-5 h-full"><ActivityBarChart data={days7}/></div>
         </div>
 
-        <div className="interactive-card relative rounded-2xl overflow-hidden h-full xl:min-h-[360px]" style={P}>
-          <SectionTitle icon={Target}>Impact Distribution</SectionTitle>
+        <div className="interactive-card relative col-span-12 overflow-hidden rounded-2xl h-full xl:col-span-4 xl:min-h-[360px]" style={P}>
+          <SectionCardHeader icon={Target} title="Impact Distribution" />
           <div className="p-4 sm:p-5 h-full flex items-center justify-center"><ImpactDonut slices={impactSlices} total={impactTotal}/></div>
         </div>
 
-        <div className="h-full xl:min-h-[360px]">
+        <div className="col-span-12 h-full xl:col-span-4 xl:min-h-[360px]">
           <WeeklyReport stats={weeklyStats} userName={emailName}/>
         </div>
 
-        <div className="interactive-card relative rounded-2xl overflow-hidden xl:col-span-2 h-full" style={P}>
-          <SectionTitle icon={Zap} extra={<span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{background:'rgba(124,108,242,0.12)',color:'var(--accent-400)'}}>{highPotential.length}</span>}>High Potential</SectionTitle>
+        <div className="interactive-card relative col-span-12 overflow-hidden rounded-2xl h-full xl:col-span-8" style={P}>
+          <SectionCardHeader icon={Zap} title="High Potential" extra={<span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{background:'rgba(124,108,242,0.12)',color:'var(--accent-400)'}}>{highPotential.length}</span>} />
           <div className="p-4 sm:p-5"><HighPotentialList items={highPotential}/></div>
         </div>
 
-        <div className="interactive-card relative rounded-2xl overflow-hidden h-full" style={P}>
-          <SectionTitle icon={AlertTriangle} extra={(notReviewedCount??0)>0?<span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{background:'rgba(124,108,242,0.12)',color:'var(--accent-400)'}}>{notReviewedCount}</span>:null}>Not Reviewed</SectionTitle>
+        <div className="interactive-card relative col-span-12 overflow-hidden rounded-2xl h-full xl:col-span-4" style={P}>
+          <SectionCardHeader icon={AlertTriangle} title="Not Reviewed" extra={(notReviewedCount??0)>0?<span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{background:'rgba(124,108,242,0.12)',color:'var(--accent-400)'}}>{notReviewedCount}</span>:null} />
           <div className="p-4 sm:p-5"><NotReviewedList items={notReviewed}/></div>
         </div>
       </div>
 
       {/* Bottom row */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 auto-rows-fr">
+      <div className="grid grid-cols-1 gap-4 auto-rows-fr xl:grid-cols-12">
         {/* Recently added */}
-        <div className="interactive-card relative rounded-2xl overflow-hidden h-full" style={P}>
-          <SectionTitle icon={Clock}>Recently Added</SectionTitle>
+        <div className="interactive-card relative col-span-12 overflow-hidden rounded-2xl h-full xl:col-span-4" style={P}>
+          <SectionCardHeader icon={Clock} title="Recently Added" />
           <div className="p-4 sm:p-5 h-full flex flex-col">
             {recent.length===0?(
               <div className="text-center py-8"><TrendingUp size={20} className="mx-auto mb-2" style={{color:'var(--text-faint)'}}/><p className="text-xs" style={{color:'var(--text-muted)'}}>Nothing yet. Start adding entries!</p></div>
@@ -254,8 +241,8 @@ export default async function DashboardPage() {
         </div>
 
         {/* Pinned */}
-        <div className="interactive-card relative rounded-2xl overflow-hidden h-full" style={P}>
-          <SectionTitle icon={Pin} extra={<span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{background:'rgba(124,108,242,0.10)',color:'var(--accent-400)'}}>{pinned.length}</span>}>Pinned</SectionTitle>
+        <div className="interactive-card relative col-span-12 overflow-hidden rounded-2xl h-full xl:col-span-4" style={P}>
+          <SectionCardHeader icon={Pin} title="Pinned" extra={<span className="text-xs px-2 py-0.5 rounded-full font-semibold" style={{background:'rgba(124,108,242,0.10)',color:'var(--accent-400)'}}>{pinned.length}</span>} />
           <div className="p-4 sm:p-5 h-full flex flex-col">
             {pinned.length===0?(
               <div className="text-center py-8"><Pin size={20} className="mx-auto mb-2" style={{color:'var(--text-faint)'}}/><p className="text-xs" style={{color:'var(--text-muted)'}}>Pin entries to see them here</p></div>
@@ -283,8 +270,8 @@ export default async function DashboardPage() {
         </div>
 
         {/* Knowledge Gaps */}
-        <div className="interactive-card relative rounded-2xl overflow-hidden h-full" style={P}>
-          <SectionTitle icon={BarChart3}>Knowledge by Industry</SectionTitle>
+        <div className="interactive-card relative col-span-12 overflow-hidden rounded-2xl h-full xl:col-span-4" style={P}>
+          <SectionCardHeader icon={BarChart3} title="Knowledge by Industry" />
           <div className="p-4 sm:p-5 h-full flex flex-col">
             <KnowledgeGaps gaps={gapData} totalIndustries={Object.keys(indMap).length}/>
             {gapData.length===0&&<p className="text-xs text-center mt-2" style={{color:'var(--text-muted)'}}>Tag entries with industries to see coverage gaps</p>}

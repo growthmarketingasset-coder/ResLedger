@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import DensityToggle from '@/components/ui/DensityToggle'
 
 interface PageShellProps {
   title: string
@@ -27,7 +28,10 @@ export default function PageShell({ title, description, action, children }: Page
             </p>
           )}
         </div>
-        {action && <div className="shrink-0 w-full sm:w-auto">{action}</div>}
+        <div className="shrink-0 flex w-full sm:w-auto items-center gap-2">
+          <DensityToggle />
+          {action}
+        </div>
       </header>
 
       <div className="flex-1 px-4 sm:px-6 py-4 sm:py-6 w-full">

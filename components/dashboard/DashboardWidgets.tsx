@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ArrowRight, AlertTriangle, CheckCircle2, Calendar, Zap } from 'lucide-react'
 import { ENTRY_TYPE_LABELS, IMPACT_CONFIG, formatRelative } from '@/lib/utils'
+import EmptyState from '@/components/ui/EmptyState'
 
 interface BarData { label: string; learnings: number; resources: number }
 
@@ -197,10 +198,7 @@ export function KnowledgeGaps({ gaps, totalIndustries }: { gaps: GapItem[]; tota
   return (
     <div className="space-y-2.5">
       {gaps.length === 0 ? (
-        <div className="text-center py-6">
-          <CheckCircle2 size={24} className="mx-auto mb-2" style={{ color: 'var(--accent-500)' }} />
-          <p className="text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>Tag entries with industries to see coverage</p>
-        </div>
+        <EmptyState dense icon={CheckCircle2} title="No Industry Data Yet" description="Tag entries with industries to see coverage." />
       ) : (
         gaps.map(g => (
           <div key={g.industry}>
@@ -229,12 +227,7 @@ export function NotReviewedList({ items }: { items: ReviewItem[] }) {
     ai_strategy: { bg: 'rgba(124,108,242,0.16)', text: '#f3f1ff' },
   }
 
-  if (items.length === 0) return (
-    <div className="text-center py-8">
-      <CheckCircle2 size={22} className="mx-auto mb-2" style={{ color: 'var(--accent-500)' }} />
-      <p className="text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>All entries reviewed</p>
-    </div>
-  )
+  if (items.length === 0) return <EmptyState dense icon={CheckCircle2} title="All Reviewed" description="You are caught up on entry reviews." />
 
   return (
     <div className="space-y-1.5">
@@ -261,12 +254,7 @@ export function NotReviewedList({ items }: { items: ReviewItem[] }) {
 
 interface HighPotentialItem { id: string; title: string; type: string; impact_level: string; tableKey: string }
 export function HighPotentialList({ items }: { items: HighPotentialItem[] }) {
-  if (items.length === 0) return (
-    <div className="text-center py-8">
-      <Zap size={22} className="mx-auto mb-2" style={{ color: 'var(--accent-500)' }} />
-      <p className="text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>Mark entries as high impact to see them here</p>
-    </div>
-  )
+  if (items.length === 0) return <EmptyState dense icon={Zap} title="No High Impact Yet" description="Mark entries as high impact to surface them here." />
 
   return (
     <div className="space-y-1.5">

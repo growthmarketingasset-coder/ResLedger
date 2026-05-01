@@ -145,6 +145,14 @@ body::before {
   p, span, label, input, textarea, select, button {
     font-family: var(--font-sans);
   }
+
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  }
 }
 
 @layer components {
@@ -328,6 +336,19 @@ body::before {
     box-shadow: var(--shadow-lift) !important;
   }
 
+  .surface-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .surface-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-lift);
+  }
+
   .interactive-card::before {
     content: '';
     position: absolute;
@@ -344,17 +365,41 @@ body::before {
   }
 
   .detail-page {
-    max-width: 48rem;
+    width: min(100%, 1280px);
     margin: 0 auto;
     padding: 1rem;
   }
 
   .detail-panel {
+    position: relative;
+    overflow: hidden;
     border-radius: 16px;
     padding: 1rem;
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
     box-shadow: var(--shadow-card);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .detail-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(135deg, rgba(124, 108, 242, 0.22), rgba(124, 108, 242, 0.08) 28%, rgba(124, 108, 242, 0) 62%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .detail-panel:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-lift);
+  }
+
+  .detail-panel:hover::before {
+    opacity: 1;
   }
 }
 
