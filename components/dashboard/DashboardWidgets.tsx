@@ -17,7 +17,7 @@ export function ActivityBarChart({ data }: { data: BarData[] }) {
   const maxVal = Math.max(...data.flatMap(d => [d.learnings, d.resources]), 1)
   const ticks = getChartTicks(maxVal)
   const activeDays = data.filter(d => d.learnings + d.resources > 0).length
-  const W = 320; const H = 108; const barGap = 3; const groupGap = 8
+  const W = 360; const H = 108; const barGap = 3; const groupGap = 8
 
   const totalBars = data.length * 2
   const totalGaps = data.length * barGap + (data.length - 1) * groupGap
@@ -77,8 +77,8 @@ export function ActivityBarChart({ data }: { data: BarData[] }) {
           </p>
         </div>
 
-        <div className="min-w-0 flex-1">
-          <svg viewBox={`0 0 ${W} ${H + 16}`} style={{ width: '100%', height: 'auto', overflow: 'visible' }}>
+        <div className="min-w-0 flex-1 overflow-x-auto">
+          <svg viewBox={`0 0 ${W} ${H + 16}`} style={{ width: '100%', minWidth: '320px', height: 'auto', overflow: 'visible' }}>
             <defs>
               <linearGradient id="barLearnings" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#9f94ff" />
