@@ -33,7 +33,7 @@ export default function FilterBar({
   } as React.CSSProperties
 
   return (
-    <div className="mb-5 flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center">
+    <div className="premium-surface mb-5 flex flex-col gap-2.5 rounded-2xl p-3 sm:flex-row sm:flex-wrap sm:items-center">
       <div className="relative w-full min-w-0 sm:max-w-sm sm:flex-1">
         <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: 'var(--text-muted)' }} />
         <input
@@ -77,7 +77,7 @@ export default function FilterBar({
       {hasFilters && (
         <button
           onClick={() => { onSearchChange(''); onIndustryChange(''); onTagChange('') }}
-          className="inline-flex w-full items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all sm:w-auto"
+          className="chip chip-accent inline-flex w-full items-center justify-center gap-1.5 px-3 py-2.5 transition-all sm:w-auto"
           style={{ background: 'rgba(124,108,242,0.10)', color: 'var(--accent-400)', border: '1px solid rgba(124,108,242,0.14)' }}
         >
           <X size={12} /> Clear

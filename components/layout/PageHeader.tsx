@@ -10,11 +10,11 @@ export default function PageHeader({ title, description, action }: PageHeaderPro
   return (
     <div className="mb-6 flex flex-col gap-3 border-b pb-4 sm:mb-8 sm:flex-row sm:items-start sm:justify-between sm:pb-6" style={{ borderBottomColor: 'var(--border-subtle)' }}>
       <div className="min-w-0">
-        <h1 className="mb-0.5 text-lg font-bold tracking-tight sm:text-xl" style={{ color: 'var(--text-primary)', letterSpacing: '-0.025em' }}>
+        <h1 className="heading-tight mb-0.5 text-lg font-extrabold sm:text-xl" style={{ color: 'var(--text-primary)' }}>
           {title}
         </h1>
         {description && (
-          <p className="text-sm leading-6" style={{ color: 'var(--text-muted)' }}>{description}</p>
+          <p className="text-sm leading-6 font-medium" style={{ color: 'var(--text-muted)' }}>{description}</p>
         )}
       </div>
       {action && <div className="w-full sm:w-auto sm:shrink-0">{action}</div>}

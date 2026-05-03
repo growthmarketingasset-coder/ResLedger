@@ -54,8 +54,8 @@ function ToolCard({ item, onPin, onArchive, onDelete, onEdit, dragHandle }: {
           <FaviconImg url={item.url} size={36} />
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold capitalize" style={{ background: ps.bg, color: ps.color }}>{item.pricing}</span>
-              {item.is_pinned && <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: '#fffbeb', color: '#b45309' }}>Pinned</span>}
+              <span className="chip capitalize" style={{ background: ps.bg, color: ps.color, borderColor: 'transparent' }}>{item.pricing}</span>
+              {item.is_pinned && <span className="chip" style={{ background: '#fffbeb', color: '#b45309', borderColor: '#fde68a' }}>Pinned</span>}
             </div>
             <h3 className="text-sm font-semibold truncate transition-colors group-hover:text-[var(--accent-400)]" style={{ color: 'var(--text-primary)' }}>{item.title}</h3>
             {item.category && <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{item.category}</p>}

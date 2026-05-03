@@ -69,13 +69,13 @@ function TemplateCard({
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
               {item.category && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold"
+                <span className="chip chip-accent"
                   style={{ background: 'rgba(124,108,242,0.10)', color: 'var(--accent-400)' }}>
                   {item.category}
                 </span>
               )}
               {item.is_pinned && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold"
+                <span className="chip chip-accent"
                   style={{ background: 'rgba(124,108,242,0.12)', color: 'var(--accent-400)' }}>
                   Pinned
                 </span>

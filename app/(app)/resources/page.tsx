@@ -60,12 +60,12 @@ function ResourceCard({
           <ServiceIcon url={item.url} title={item.title} size={36} />
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
-              <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold capitalize"
+              <span className="chip capitalize"
                 style={{ background: 'var(--bg-hover)', color: 'var(--text-secondary)', border: '1px solid var(--border-subtle)' }}>
                 {item.resource_type}
               </span>
               {item.is_pinned && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold" style={{ background: '#fffbeb', color: '#b45309' }}>
+                <span className="chip" style={{ background: '#fffbeb', color: '#b45309', borderColor: '#fde68a' }}>
                   Pinned
                 </span>
               )}

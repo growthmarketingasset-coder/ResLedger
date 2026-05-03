@@ -235,7 +235,7 @@ export function NotReviewedList({ items }: { items: ReviewItem[] }) {
         const pill = TYPE_PILL[item.type] || { bg: 'var(--bg-hover)', text: 'var(--text-secondary)' }
         return (
           <Link key={`${item.type}-${item.id}`} href={`/${item.tableKey}/${item.id}`}>
-            <div className="flex flex-wrap items-center gap-2 px-3 py-2.5 rounded-xl transition-all group cursor-pointer hover:bg-[rgba(255,255,255,0.03)] sm:flex-nowrap sm:gap-3">
+            <div className="row-item flex flex-wrap items-center gap-2 px-3 py-2.5 rounded-xl transition-all group cursor-pointer sm:flex-nowrap sm:gap-3">
               <AlertTriangle size={13} style={{ color: 'var(--accent-500)', flexShrink: 0 }} />
               <span className="min-w-0 flex-1 text-sm font-medium transition-colors sm:truncate group-hover:text-[var(--accent-400)]" style={{ color: 'var(--text-primary)' }}>
                 {item.title}
@@ -262,7 +262,7 @@ export function HighPotentialList({ items }: { items: HighPotentialItem[] }) {
         const cfg = IMPACT_CONFIG[item.impact_level]
         return (
           <Link key={`${item.type}-${item.id}`} href={`/${item.tableKey}/${item.id}`}>
-            <div className="flex flex-wrap items-center gap-2 px-3 py-2.5 rounded-xl transition-all group cursor-pointer hover:bg-[rgba(255,255,255,0.03)] sm:flex-nowrap sm:gap-3">
+            <div className="row-item flex flex-wrap items-center gap-2 px-3 py-2.5 rounded-xl transition-all group cursor-pointer sm:flex-nowrap sm:gap-3">
               <div className="w-2 h-2 rounded-full shrink-0" style={{ background: cfg?.color || 'var(--accent-500)' }} />
               <span className="min-w-0 flex-1 text-sm font-medium transition-colors sm:truncate group-hover:text-[var(--accent-400)]" style={{ color: 'var(--text-primary)' }}>
                 {item.title}
