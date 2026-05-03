@@ -52,12 +52,11 @@ function ResourceCard({
     <>
       <div
         onClick={handleCardClick}
-        className="group surface-card rounded-2xl p-5 cursor-pointer"
+        className="group surface-card rounded-2xl p-5 cursor-pointer relative overflow-hidden"
         style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-card)' }}
       >
         {/* Header */}
         <div className="flex items-start gap-3 mb-3">
-          {dragHandle}
           <ServiceIcon url={item.url} title={item.title} size={36} />
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
@@ -78,6 +77,11 @@ function ResourceCard({
 
           {/* Actions */}
           <div className="flex items-center gap-0.5 shrink-0" data-menu="true">
+            {dragHandle && (
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity" title="Drag to reorder">
+                {dragHandle}
+              </div>
+            )}
             {item.url && (
               <a href={item.url} target="_blank" rel="noopener noreferrer"
                 onClick={e => e.stopPropagation()}

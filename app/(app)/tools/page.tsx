@@ -46,12 +46,11 @@ function ToolCard({ item, onPin, onArchive, onDelete, onEdit, dragHandle }: {
 
   return (
     <>
-      <div onClick={handleCardClick} className="group surface-card rounded-2xl p-5 cursor-pointer"
+      <div onClick={handleCardClick} className="group surface-card rounded-2xl p-5 cursor-pointer relative overflow-hidden"
         style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', boxShadow: 'var(--shadow-card)' }}
       >
 
         <div className="flex items-start gap-3 mb-3">
-          {dragHandle}
           <FaviconImg url={item.url} size={36} />
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
@@ -62,6 +61,11 @@ function ToolCard({ item, onPin, onArchive, onDelete, onEdit, dragHandle }: {
             {item.category && <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{item.category}</p>}
           </div>
           <div className="flex items-center gap-0.5 shrink-0" data-menu="true">
+            {dragHandle && (
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity" title="Drag to reorder">
+                {dragHandle}
+              </div>
+            )}
             {item.url && (
               <a href={item.url} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
                 className="p-1.5 rounded-lg transition-all opacity-0 group-hover:opacity-100" style={{ color: 'var(--text-muted)' }}
