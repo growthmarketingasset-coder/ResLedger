@@ -187,6 +187,11 @@ body::before {
     transform: translateY(-1px);
   }
 
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 8px 18px rgba(124, 108, 242, 0.24), var(--btn-glass-ring);
+  }
+
   .btn-primary::after {
     content: '';
     position: absolute;
@@ -212,6 +217,11 @@ body::before {
     border-color: var(--border-strong);
     box-shadow: var(--shadow-sm), 0 0 0 1px rgba(124, 108, 242, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12);
     transform: translateY(-1px);
+  }
+
+  .btn-secondary:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-xs), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 
   .btn-secondary::after {
@@ -297,7 +307,7 @@ body::before {
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
     box-shadow: var(--shadow-card);
-    transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
   }
 
   .card:hover {
@@ -312,7 +322,7 @@ body::before {
     box-shadow: var(--shadow-card);
     border-radius: 16px;
     overflow: hidden;
-    transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
   }
 
   .panel:hover {
@@ -328,6 +338,7 @@ body::before {
   .interactive-card {
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     will-change: transform;
+    isolation: isolate;
   }
 
   .interactive-card:hover {
@@ -361,6 +372,21 @@ body::before {
   }
 
   .interactive-card:hover::before {
+    opacity: 1;
+  }
+
+  .interactive-card::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    pointer-events: none;
+    border: 1px solid rgba(124, 108, 242, 0.14);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .interactive-card:hover::after {
     opacity: 1;
   }
 
@@ -400,6 +426,24 @@ body::before {
 
   .detail-panel:hover::before {
     opacity: 1;
+  }
+
+  .app-shell-content {
+    width: min(100%, 1680px);
+    margin: 0 auto;
+  }
+
+  .soft-divider {
+    border-bottom: 1px solid var(--border-subtle);
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+  }
+
+  .premium-surface {
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0)),
+      var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-card);
   }
 }
 
